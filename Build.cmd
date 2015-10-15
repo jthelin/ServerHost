@@ -45,16 +45,21 @@ SET STEP=%CONFIGURATION%
 @if ERRORLEVEL 1 GOTO :ErrorStop
 @echo BUILD ok for %CONFIGURATION% %PROJ%
 
-@echo Build NuGet Package ======================
+@echo NuGet Package ============================
 
 SET STEP=NuGet
 
-nuget pack %PROJ_NAME%.nuspec
+if "%APPVEYOR%" == "True" (
+    @echo == Skipping NuGet pack in Appveyor build
+) else if "%Configuration%" == "Release" (
 
-@if ERRORLEVEL 1 GOTO :ErrorStop
-@echo Nuget Pack ok
+  nuget pack %PROJ_NAME%.nuspec
 
-@echo ===== Build succeeded for %PROJ% =====
+  @if ERRORLEVEL 1 GOTO :ErrorStop
+  @echo Nuget Pack ok
+)
+
+@echo ======= Build succeeded for %PROJ% =======
 @GOTO :EOF
 
 :ErrorStop
