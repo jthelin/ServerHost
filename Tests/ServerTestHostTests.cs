@@ -20,14 +20,14 @@ namespace Tests
         {
             string serverName = TestContext.TestName;
 
-            ServerHost<TestServer.Server> serverHost = ServerTestHost
+            ServerHostHandle<TestServer.Server> serverHostHandle = ServerTestHost
                 .LoadServerInNewAppDomain<TestServer.Server>(serverName);
 
-            Assert.IsNotNull(serverHost, "Null ServerHost returned.");
-            Assert.AreEqual(serverName, serverHost.ServerName, "ServerHost.ServerName");
-            Assert.IsNotNull(serverHost.AppDomain, "Null ServerHost.AppDomain returned.");
-            Assert.IsNotNull(serverHost.Server, "Null ServerHost.Server returned.");
-            Assert.IsInstanceOfType(serverHost.Server, typeof(TestServer.Server), "Server instance type.");
+            Assert.IsNotNull(serverHostHandle, "Null ServerHostHandle returned.");
+            Assert.AreEqual(serverName, serverHostHandle.ServerName, "ServerHostHandle.ServerName");
+            Assert.IsNotNull(serverHostHandle.AppDomain, "Null ServerHostHandle.AppDomain returned.");
+            Assert.IsNotNull(serverHostHandle.Server, "Null ServerHostHandle.Server returned.");
+            Assert.IsInstanceOfType(serverHostHandle.Server, typeof(TestServer.Server), "Server instance type.");
         }
 
         #region Test Initialization / Cleanup methods

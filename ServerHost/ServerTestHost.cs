@@ -14,7 +14,7 @@ namespace ServerHost
     /// Data holder class for information related to a hosted in-process test server instance.
     /// </summary>
     /// <typeparam name="TServer">Type of the server.</typeparam>
-    public class ServerHost<TServer> 
+    public class ServerHostHandle<TServer> 
         where TServer : MarshalByRefObject
     {
         public string ServerName { get; internal set; }
@@ -38,12 +38,12 @@ namespace ServerHost
         /// </summary>
         /// <typeparam name="TServer">Type of the server.</typeparam>
         /// <param name="serverName">Name of this server instance.</param>
-        /// <returns><c>ServerHost</c> object containing metadata about the loaded server instance.</returns>
+        /// <returns><c>ServerHostHandle</c> object containing metadata about the loaded server instance.</returns>
         /// <remarks>
         /// The <c>serverName</c> will be used for the name of the newly created AppDomain to host this new server instance.
         /// Multiple copies of a server can be created if they arer each given a different server name.
         /// </remarks>
-        public static ServerHost<TServer> LoadServerInNewAppDomain<TServer>(
+        public static ServerHostHandle<TServer> LoadServerInNewAppDomain<TServer>(
             string serverName) 
             where TServer : MarshalByRefObject
         {
@@ -78,7 +78,7 @@ namespace ServerHost
 
             appDomain.UnhandledException += ReportUnobservedException;
 
-            return new ServerHost<TServer>
+            return new ServerHostHandle<TServer>
             {
                 ServerName = serverName,
                 Server = (TServer) serverObj,

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ServerHost</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <authors>Jorgen Thelin</authors>
     <owners>Jorgen Thelin</owners>
     <licenseUrl>https://github.com/jthelin/ServerHost/blob/master/LICENSE</licenseUrl>
