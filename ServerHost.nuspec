@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ServerHost</id>
+    <version>1.0.0</version>
+    <authors>Jorgen Thelin</authors>
+    <owners>Jorgen Thelin</owners>
+    <licenseUrl>https://github.com/jthelin/ServerHost/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/jthelin/ServerHost</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ServerHost - A .NET Server Hosting utility library, including in-process server host testing.</description>
+    <releaseNotes>Release note are on GitHub https://github.com/jthelin/ServerHost/releases</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>DotNet Server Host</tags>
+    <dependencies>
+      <dependency id="log4net" version="2.0.3" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Binaries\Release\ServerHost.dll" target="lib\net45" />
+  </files>
+</package>

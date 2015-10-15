@@ -9,6 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestServer", "TestServer\TestServer.csproj", "{3C8985C0-B0EC-4EB6-8EA3-DCB7D770F3FC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{64DBC33D-89B0-4F25-8E6D-3A4FAA8F4AE0}"
+	ProjectSection(SolutionItems) = preProject
+		Build.cmd = Build.cmd
+		Clean.cmd = Clean.cmd
+		ServerHost.nuspec = ServerHost.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
