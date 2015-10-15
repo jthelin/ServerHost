@@ -17,6 +17,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Binaries\Release\ServerHost.dll" target="lib\net45" />
+    <file src="ServerHost\bin\Release\ServerHost.dll" target="lib\net45" />
   </files>
 </package>

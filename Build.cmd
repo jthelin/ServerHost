@@ -22,11 +22,9 @@ set PROJ=%CMDHOME%\%PROJ_NAME%.sln
 
 nuget restore
 
-
 @echo Build Debug ==============================
 
 SET CONFIGURATION=Debug
-SET OutDir=%BinariesDir%\%CONFIGURATION%
 
 SET STEP=%CONFIGURATION%
 
@@ -37,7 +35,6 @@ SET STEP=%CONFIGURATION%
 @echo Build Release ============================
 
 SET CONFIGURATION=Release
-SET OutDir=%BinariesDir%\%CONFIGURATION%
 
 SET STEP=%CONFIGURATION%
 
@@ -49,15 +46,10 @@ SET STEP=%CONFIGURATION%
 
 SET STEP=NuGet
 
-if "%APPVEYOR%" == "True" (
-    @echo == Skipping NuGet pack in Appveyor build
-) else if "%Configuration%" == "Release" (
+nuget pack %PROJ_NAME%.nuspec
 
-  nuget pack %PROJ_NAME%.nuspec
-
-  @if ERRORLEVEL 1 GOTO :ErrorStop
-  @echo Nuget Pack ok
-)
+@if ERRORLEVEL 1 GOTO :ErrorStop
+@echo Nuget pack ok
 
 @echo ======= Build succeeded for %PROJ% =======
 @GOTO :EOF
