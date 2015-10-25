@@ -18,7 +18,7 @@ namespace Tests
         [Fact]
         public void LoadServerInNewAppDomain()
         {
-            string serverName = null; // TestContext.TestName;
+            string serverName = "LoadServerInNewAppDomain"; // TestContext.TestName;
 
             ServerHostHandle<TestServer.Server> serverHostHandle = ServerTestHost
                 .LoadServerInNewAppDomain<TestServer.Server>(serverName);
