@@ -47,6 +47,9 @@ namespace ServerHost
             string serverName) 
             where TServer : MarshalByRefObject
         {
+            if (string.IsNullOrEmpty(serverName)) {
+                throw new ArgumentNullException ("serverName", "Server name param cannot be blank.");
+            }
             Type serverType = typeof(TServer);
             string assemblyName = serverType.Assembly.GetName().Name;
             string serverAssembly = assemblyName + ".exe";
