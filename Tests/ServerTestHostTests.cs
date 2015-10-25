@@ -4,22 +4,21 @@ using System;
 using FluentAssertions;
 using log4net;
 using log4net.Config;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Abstractions;
+
 using ServerHost;
 
 namespace Tests
 {
-    [TestClass]
     public class ServerTestHostTests
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ServerTestHostTests));
 
-        public TestContext TestContext { get; set; }
-
-        [TestMethod]
+        [Fact]
         public void LoadServerInNewAppDomain()
         {
-            string serverName = TestContext.TestName;
+            string serverName = null; // TestContext.TestName;
 
             ServerHostHandle<TestServer.Server> serverHostHandle = ServerTestHost
                 .LoadServerInNewAppDomain<TestServer.Server>(serverName);
@@ -33,29 +32,33 @@ namespace Tests
 
         #region Test Initialization / Cleanup methods
 
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext testContext)
+        private readonly ITestOutputHelper output;
+
+        // ClassInitialize
+        public ServerTestHostTests(ITestOutputHelper output)
         {
             // Set up the log4net configuration from data in the App.config file.
             XmlConfigurator.Configure();
 
+            this.output = output;
+
             log.InfoFormat("ClassInitialize - Current directory = {0}", Environment.CurrentDirectory);
         }
 
-        [TestInitialize]
+        // TestInitialize
         public void TestInitialize()
         {
-            string testName = TestContext.TestName;
+            string testName = null; // TestContext.TestName;
 
-            log.InfoFormat("TestInitialize - {0}", testName);
+            output.WriteLine("TestInitialize - {0}", testName);
         }
 
-        [TestCleanup]
+        // TestCleanup
         public void TestCleanup()
         {
-            string testName = TestContext.TestName;
+            string testName = null; // TestContext.TestName;
 
-            log.InfoFormat("TestCleanup - {0}", testName);
+            output.WriteLine("TestCleanup - {0}", testName);
 
             ServerTestHost.UnloadAllServers();
         }
