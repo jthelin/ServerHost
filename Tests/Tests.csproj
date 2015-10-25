@@ -40,6 +40,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="FluentAssertions.Core">
+      <HintPath>..\packages\FluentAssertions.4.0.1\lib\net45\FluentAssertions.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions">
+      <HintPath>..\packages\FluentAssertions.4.0.1\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -63,11 +71,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ServerHost\ServerHost.csproj">
-      <Project>{98d61e3e-76a7-4664-baf7-fbbf41a798d9}</Project>
+      <Project>{98D61E3E-76A7-4664-BAF7-FBBF41A798D9}</Project>
       <Name>ServerHost</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestServer\TestServer.csproj">
-      <Project>{3c8985c0-b0ec-4eb6-8ea3-dcb7d770f3fc}</Project>
+      <Project>{3C8985C0-B0EC-4EB6-8EA3-DCB7D770F3FC}</Project>
       <Name>TestServer</Name>
     </ProjectReference>
   </ItemGroup>

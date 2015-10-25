@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Jorgen Thelin. All rights reserved.
 
 using System;
+using FluentAssertions;
 using log4net;
 using log4net.Config;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,11 +24,11 @@ namespace Tests
             ServerHostHandle<TestServer.Server> serverHostHandle = ServerTestHost
                 .LoadServerInNewAppDomain<TestServer.Server>(serverName);
 
-            Assert.IsNotNull(serverHostHandle, "Null ServerHostHandle returned.");
-            Assert.AreEqual(serverName, serverHostHandle.ServerName, "ServerHostHandle.ServerName");
-            Assert.IsNotNull(serverHostHandle.AppDomain, "Null ServerHostHandle.AppDomain returned.");
-            Assert.IsNotNull(serverHostHandle.Server, "Null ServerHostHandle.Server returned.");
-            Assert.IsInstanceOfType(serverHostHandle.Server, typeof(TestServer.Server), "Server instance type.");
+            serverHostHandle.Should().NotBeNull("Null ServerHostHandle returned.");
+            serverHostHandle.ServerName.Should().Be(serverName, "ServerHostHandle.ServerName");
+            serverHostHandle.AppDomain.Should().NotBeNull("Null ServerHostHandle.AppDomain returned.");
+            serverHostHandle.Server.Should().NotBeNull("Null ServerHostHandle.Server returned.");
+            serverHostHandle.Server.Should().BeOfType<TestServer.Server>("Server instance type.");
         }
 
         #region Test Initialization / Cleanup methods
