@@ -25,6 +25,8 @@ SET XUNIT_EXE=%XUNIT_EXE_DIR%\xunit.console.exe
 cd "%CMDHOME%"
 @cd
 
+set PROJ=%PROJ_NAME%
+
 @if "%USE_BINARIES_DIR%" == "True" SET OutDir=Binaries\%CONFIGURATION%
 
 set TEST_RESULTS_DIR=TestResults
@@ -47,7 +49,7 @@ set TEST_ARGS= %TEST_ARGS% %XUNIT_ARGS%
 "%XUNIT_EXE%" %TESTS% %TEST_ARGS% 
 
 @if ERRORLEVEL 1 GOTO :ErrorStop
-@echo Test ok for %CONFIGURATION% %PROJ%
+@echo Test ok for %PROJ% %CONFIGURATION%
 
 @echo ======= Test succeeded for %PROJ% =======
 @GOTO :EOF
