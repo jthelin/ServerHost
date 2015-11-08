@@ -3,55 +3,69 @@
 
 set PROJ_NAME=ServerHost
 
-SET CMDHOME=%~dp0.
+SET CMDHOME=%~dp0
+@REM Remove trailing backslash \
+set CMDHOME=%CMDHOME:~0,-1%
+
+@REM Set some .NET directory locations required if running from PowerShell prompt.
 if "%FrameworkDir%" == "" set FrameworkDir=%WINDIR%\Microsoft.NET\Framework
 if "%FrameworkVersion%" == "" set FrameworkVersion=v4.0.30319
 
 SET MSBUILDEXEDIR=%FrameworkDir%\%FrameworkVersion%
 SET MSBUILDEXE=%MSBUILDEXEDIR%\MSBuild.exe
+SET MSBUILDOPT=/verbosity:minimal
 
 if "%builduri%" == "" set builduri=Build.cmd
-
-SET BinariesDir=%CMDHOME%\Binaries
+set USE_BINARIES_DIR=False
 
 set PROJ=%CMDHOME%\%PROJ_NAME%.sln
 
 @echo ===== Building %PROJ% =====
 
+@if "%USE_BINARIES_DIR%" == "True" SET BinariesDir=%CMDHOME%\Binaries
+
 @echo Restore NuGet packages ===================
+SET STEP=NuGet-Restore
 
 nuget restore
 
+@if ERRORLEVEL 1 GOTO :ErrorStop
+
 @echo Build Debug ==============================
+SET STEP=Debug
 
-SET CONFIGURATION=Debug
+SET CONFIGURATION=%STEP%
 
-SET STEP=%CONFIGURATION%
+@if "%USE_BINARIES_DIR%" == "True" SET OutDir=%BinariesDir%\%CONFIGURATION%
 
-"%MSBUILDEXE%" /p:Configuration=%CONFIGURATION% "%PROJ%"
+"%MSBUILDEXE%" /p:Configuration=%CONFIGURATION% %MSBUILDOPT% "%PROJ%"
 @if ERRORLEVEL 1 GOTO :ErrorStop
 @echo BUILD ok for %CONFIGURATION% %PROJ%
 
 @echo Build Release ============================
+SET STEP=Release
 
-SET CONFIGURATION=Release
+SET CONFIGURATION=%STEP%
 
-SET STEP=%CONFIGURATION%
+@if "%USE_BINARIES_DIR%" == "True" SET OutDir=%BinariesDir%\%CONFIGURATION%
 
-"%MSBUILDEXE%" /p:Configuration=%CONFIGURATION% "%PROJ%"
+"%MSBUILDEXE%" /p:Configuration=%CONFIGURATION% %MSBUILDOPT% "%PROJ%"
 @if ERRORLEVEL 1 GOTO :ErrorStop
 @echo BUILD ok for %CONFIGURATION% %PROJ%
 
-@echo NuGet Package ============================
+if EXIST %PROJ_NAME%.nuspec (
+  @echo ===== Build NuGet package for %PROJ% =====
+  SET STEP=NuGet-Pack
 
-SET STEP=NuGet
+  nuget pack %PROJ_NAME%.nuspec
+  @if ERRORLEVEL 1 GOTO :ErrorStop
+  @echo NuGet package ok for %PROJ%
+) else (
+  @echo NO NuGet package spec file found
+)
 
-nuget pack %PROJ_NAME%.nuspec
+@echo ===== Build succeeded for %PROJ% =====
 
-@if ERRORLEVEL 1 GOTO :ErrorStop
-@echo Nuget pack ok
-
-@echo ======= Build succeeded for %PROJ% =======
 @GOTO :EOF
 
 :ErrorStop
