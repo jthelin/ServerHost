@@ -1,0 +1,6 @@
+language: csharp
+solution: ServerHost.sln
+script:
+  - ./Build.sh
+  - ./Test.sh
+  - grep "Test Results" build.log
