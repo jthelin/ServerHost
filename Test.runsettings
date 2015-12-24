@@ -22,8 +22,8 @@ https://msdn.microsoft.com/en-us/library/jj635153(v=vs.120).aspx
                 <ModulePath>.*nunit.*.*\.dll$</ModulePath>
                 <ModulePath>.*xunit.*.*\.dll$</ModulePath>
 
-                <ModulePath>.*test.*.*\.dll$</ModulePath>
-                <ModulePath>.*tests.*.*\.dll$</ModulePath>
+                <ModulePath>.*tests\.dll$</ModulePath>
+                <ModulePath>.*testserver\.exe$</ModulePath>
               </Exclude>
             </ModulePaths>
           </CodeCoverage>
