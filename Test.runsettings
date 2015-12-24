@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Based on:
+https://msdn.microsoft.com/en-us/library/ee782531(v=vs.120).aspx
+https://msdn.microsoft.com/en-us/library/jj635153(v=vs.120).aspx
+-->
+<RunSettings>
+  <!-- Configurations for data collectors -->
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="Code Coverage" uri="datacollector://Microsoft/CodeCoverage/2.0" assemblyQualifiedName="Microsoft.VisualStudio.Coverage.DynamicCoverageDataCollector, Microsoft.VisualStudio.TraceCollector, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+        <Configuration>
+          <CodeCoverage>
+            <ModulePaths>
+              <Exclude>
+                <!-- Exclude external modules that aren't to be analysed, using _RegEx_ pattern matching for full path -->
+                <ModulePath>.*cmdline.*\.dll$</ModulePath>
+                <ModulePath>.*ini-parser.*\.dll$</ModulePath>
+                <ModulePath>.*log4net.*\.dll$</ModulePath>
+                <ModulePath>.*newtonsoft\.json.*\.dll$</ModulePath>
+
+                <ModulePath>.*fluentassertions.*\.dll$</ModulePath>
+                <ModulePath>.*nunit.*.*\.dll$</ModulePath>
+                <ModulePath>.*xunit.*.*\.dll$</ModulePath>
+
+                <ModulePath>.*test.*.*\.dll$</ModulePath>
+                <ModulePath>.*tests.*.*\.dll$</ModulePath>
+              </Exclude>
+            </ModulePaths>
+          </CodeCoverage>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>

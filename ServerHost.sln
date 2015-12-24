@@ -16,6 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Clean.cmd = Clean.cmd
 		ServerHost.nuspec = ServerHost.nuspec
 		Test.cmd = Test.cmd
+		Test.runsettings = Test.runsettings
 		Test.sh = Test.sh
 	EndProjectSection
 EndProject
