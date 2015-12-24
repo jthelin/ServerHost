@@ -11,9 +11,11 @@ using ServerHost;
 
 namespace Tests
 {
-    public class ServerTestHostTests
+    public class ServerTestHostTests : IClassFixture<ServerTestHostFixture>, IDisposable
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ServerTestHostTests));
+
+        private readonly ITestOutputHelper output;
 
         [Fact]
         public void LoadServerInNewAppDomain()
@@ -32,37 +34,45 @@ namespace Tests
 
         #region Test Initialization / Cleanup methods
 
-        private readonly ITestOutputHelper output;
-
-        // ClassInitialize
-        public ServerTestHostTests(ITestOutputHelper output)
-        {
-            // Set up the log4net configuration from data in the App.config file.
-            XmlConfigurator.Configure();
-
-            this.output = output;
-
-            log.InfoFormat("ClassInitialize - Current directory = {0}", Environment.CurrentDirectory);
-        }
-
         // TestInitialize
-        public void TestInitialize()
+        public ServerTestHostTests(ITestOutputHelper output, ServerTestHostFixture fixture)
         {
-            string testName = null; // TestContext.TestName;
+            this.output = output;
+            output.WriteLine("TestInitialize");
 
-            output.WriteLine("TestInitialize - {0}", testName);
+            output.WriteLine("Fixture = {0}", fixture);
+
+            output.WriteLine("Current directory = {0}", Environment.CurrentDirectory);
         }
 
         // TestCleanup
-        public void TestCleanup()
+        public void Dispose()
         {
-            string testName = null; // TestContext.TestName;
+            output.WriteLine("TestCleanup");
 
-            output.WriteLine("TestCleanup - {0}", testName);
-
+            output.WriteLine("UnloadAllServers");
             ServerTestHost.UnloadAllServers();
         }
-
         #endregion
+    }
+
+    public class ServerTestHostFixture : IDisposable
+    {
+        internal static readonly ILog log = LogManager.GetLogger(typeof(ServerTestHostFixture));
+
+        // ClassInitialize
+        public ServerTestHostFixture()
+        {
+            // Set up the log4net configuration.
+            BasicConfigurator.Configure();
+
+            log.Info("ServerTestHostFixture - Initialize");
+        }
+
+        // ClassCleanup
+        public void Dispose()
+        {
+            log.Info("ServerTestHostFixture - Dispose");
+        }
     }
 }
