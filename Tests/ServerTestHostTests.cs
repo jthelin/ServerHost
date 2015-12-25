@@ -13,7 +13,7 @@ namespace Tests
 {
     public class ServerTestHostTests : IClassFixture<ServerTestHostFixture>, IDisposable
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(ServerTestHostTests));
+        //private static readonly ILog log = LogManager.GetLogger(typeof(ServerTestHostTests));
 
         private readonly ITestOutputHelper output;
 
