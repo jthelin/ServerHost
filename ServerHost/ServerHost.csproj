@@ -62,10 +62,10 @@
   <Target Name="AfterBuild">
      <XslTransformation Condition="'$(OS)' == 'Windows_NT'" 
        XslInputPath="..\documentation\DocFormatter.xsl"
-       XmlInputPaths="$(OutDir)\$(ProjectName).XML"
-       OutputPaths="..\documentation\$(ProjectName).md"
+       XmlInputPaths="$(OutDir)\$(MSBuildProjectName).XML"
+       OutputPaths="..\documentation\$(MSBuildProjectName).md"
        />
      <Exec Condition="'$(OS)' != 'Windows_NT'" 
-       Command="xsltproc -o ../documentation/ServerHost.md ../documentation/DocFormatter.xsl $(OutDir)/ServerHost.XML" />
+       Command="xsltproc -o ../documentation/$(MSBuildProjectName).md ../documentation/DocFormatter.xsl $(OutDir)/$(MSBuildProjectName).XML" />
    </Target>
 </Project>
