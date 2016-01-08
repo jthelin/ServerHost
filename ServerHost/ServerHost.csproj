@@ -66,6 +66,6 @@
        OutputPaths="..\documentation\$(ProjectName).md"
        />
      <Exec Condition="'$(OS)' != 'Windows_NT'" 
-       Command="xsltproc -o ../documentation/$(ProjectName).md ../documentation/DocFormatter.xsl $(OutDir)/$(ProjectName).XML" />
+       Command="xsltproc -o ../documentation/ServerHost.md ../documentation/DocFormatter.xsl $(OutDir)/ServerHost.XML" />
    </Target>
 </Project>
