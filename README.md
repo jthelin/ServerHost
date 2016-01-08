@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/jthelin/ServerHost.png?label=ready&title=Ready)](https://waffle.io/jthelin/ServerHost)
 # ServerHost
 
 .NET Server Hosting utility library, including in-process server host testing.
