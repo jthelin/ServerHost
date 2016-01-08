@@ -17,16 +17,18 @@ namespace ServerHost
     public class ServerHostHandle<TServer> 
         where TServer : MarshalByRefObject
     {
+        /// <summary> The name of this server. </summary>
         public string ServerName { get; internal set; }
+        /// <summary> Reference to the Server instance in the hoster AppDomain. </summary>
         public TServer Server { get; internal set; }
+        /// <summary> Reference to the AppDomain this server is running in. </summary>
         public AppDomain AppDomain { get; internal set; }
     }
 
     /// <summary>
     /// A test framework class for loading server instances into individual AppDomains in current process.
     /// </summary>
-    /// <remarks>Uses <c>log4net</c> for logging.</remarks>
-    /// <see cref="http://logging.apache.org/log4net/"/>
+    /// <remarks>Uses <c>log4net</c> for logging. See: http://logging.apache.org/log4net/</remarks>
     public static class ServerTestHost
     {
         private static readonly ILog log = LogManager.GetLogger("ServerTestHost");
