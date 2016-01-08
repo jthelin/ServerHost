@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\ServerHost.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\ServerHost.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -57,4 +59,13 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="AfterBuild">
+     <XslTransformation Condition="'$(OS)' == 'Windows_NT'" 
+       XslInputPath="..\documentation\DocFormatter.xsl"
+       XmlInputPaths="$(OutDir)\$(ProjectName).XML"
+       OutputPaths="..\documentation\$(ProjectName).md"
+       />
+     <Exec Condition="'$(OS)' != 'Windows_NT'" 
+       Command="xsltproc -o ../documentation/$(ProjectName).md ../documentation/DocFormatter.xsl $(OutDir)/$(ProjectName).XML" />
+   </Target>
 </Project>

@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Build.cmd = Build.cmd
 		Build.sh = Build.sh
 		Clean.cmd = Clean.cmd
+		documentation\DocFormatter.xsl = documentation\DocFormatter.xsl
 		ServerHost.nuspec = ServerHost.nuspec
 		Test.cmd = Test.cmd
 		Test.runsettings = Test.runsettings
