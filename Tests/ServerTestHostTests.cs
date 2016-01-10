@@ -18,6 +18,7 @@ namespace Tests
         private readonly ITestOutputHelper output;
 
         [Fact]
+        [Trait("Category","BVT")]
         public void LoadServerInNewAppDomain()
         {
             string serverName = "LoadServerInNewAppDomain"; // TestContext.TestName;
