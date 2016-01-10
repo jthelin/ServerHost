@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ServerHost")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("ServerHost - A .NET Server Hosting utility library, including in-process server host testing.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Jorgen Thelin")]
 [assembly: AssemblyProduct("ServerHost")]
-[assembly: AssemblyCopyright("Copyright © Jorgen Thelin 2015")]
+[assembly: AssemblyCopyright("Copyright © Jorgen Thelin 2015-2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
