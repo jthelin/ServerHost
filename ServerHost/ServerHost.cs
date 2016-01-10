@@ -8,30 +8,35 @@ using System.IO;
 using System.Reflection;
 using log4net;
 
-namespace ServerHost
+namespace Server.Host
 {
     /// <summary>
     /// Data holder class for information related to a hosted in-process test server instance.
     /// </summary>
     /// <typeparam name="TServer">Type of the server.</typeparam>
     public class ServerHostHandle<TServer> 
-        where TServer : MarshalByRefObject
     {
+        internal ServerHostHandle()
+        {
+            // Prevent the arbitrary creation of ServerHostHandle objects.
+        }
+
         /// <summary> The name of this server. </summary>
         public string ServerName { get; internal set; }
-        /// <summary> Reference to the Server instance in the hoster AppDomain. </summary>
+        /// <summary> Reference to the Server instance in the hosted AppDomain. 
+        /// This should be a <c>MarshalByRefObject</c> to allow cross-domain API calls.</summary>
         public TServer Server { get; internal set; }
         /// <summary> Reference to the AppDomain this server is running in. </summary>
         public AppDomain AppDomain { get; internal set; }
     }
 
     /// <summary>
-    /// A test framework class for loading server instances into individual AppDomains in current process.
+    /// A hosting / test framework class for loading server instances into individual AppDomains in current process.
     /// </summary>
     /// <remarks>Uses <c>log4net</c> for logging. See: http://logging.apache.org/log4net/</remarks>
-    public static class ServerTestHost
+    public static class ServerHost
     {
-        private static readonly ILog log = LogManager.GetLogger("ServerTestHost");
+        private static readonly ILog log = LogManager.GetLogger("ServerHost");
 
         private static readonly List<AppDomain> loadedAppDomains = new List<AppDomain>();
 

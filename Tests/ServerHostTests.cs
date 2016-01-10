@@ -7,13 +7,13 @@ using log4net.Config;
 using Xunit;
 using Xunit.Abstractions;
 
-using ServerHost;
+using Server.Host;
 
 namespace Tests
 {
-    public class ServerTestHostTests : IClassFixture<ServerTestHostFixture>, IDisposable
+    public class ServerHostTests : IClassFixture<ServerHostTestFixture>, IDisposable
     {
-        //private static readonly ILog log = LogManager.GetLogger(typeof(ServerTestHostTests));
+        //private static readonly ILog log = LogManager.GetLogger(typeof(ServerHostTests));
 
         private readonly ITestOutputHelper output;
 
@@ -23,7 +23,7 @@ namespace Tests
         {
             string serverName = "LoadServerInNewAppDomain"; // TestContext.TestName;
 
-            ServerHostHandle<TestServer.Server> serverHostHandle = ServerTestHost
+            ServerHostHandle<TestServer.Server> serverHostHandle = ServerHost
                 .LoadServerInNewAppDomain<TestServer.Server>(serverName);
 
             serverHostHandle.Should().NotBeNull("Null ServerHostHandle returned.");
@@ -36,7 +36,7 @@ namespace Tests
         #region Test Initialization / Cleanup methods
 
         // TestInitialize
-        public ServerTestHostTests(ITestOutputHelper output, ServerTestHostFixture fixture)
+        public ServerHostTests(ITestOutputHelper output, ServerHostTestFixture fixture)
         {
             this.output = output;
             output.WriteLine("TestInitialize");
@@ -52,28 +52,28 @@ namespace Tests
             output.WriteLine("TestCleanup");
 
             output.WriteLine("UnloadAllServers");
-            ServerTestHost.UnloadAllServers();
+            ServerHost.UnloadAllServers();
         }
         #endregion
     }
 
-    public class ServerTestHostFixture : IDisposable
+    public class ServerHostTestFixture : IDisposable
     {
-        internal static readonly ILog log = LogManager.GetLogger(typeof(ServerTestHostFixture));
+        internal static readonly ILog log = LogManager.GetLogger(typeof(ServerHostTestFixture));
 
         // ClassInitialize
-        public ServerTestHostFixture()
+        public ServerHostTestFixture()
         {
             // Set up the log4net configuration.
             BasicConfigurator.Configure();
 
-            log.Info("ServerTestHostFixture - Initialize");
+            log.Info("ServerHostTestFixture - Initialize");
         }
 
         // ClassCleanup
         public void Dispose()
         {
-            log.Info("ServerTestHostFixture - Dispose");
+            log.Info("ServerHostTestFixture - Dispose");
         }
     }
 }
