@@ -27,7 +27,7 @@ set PROJ=%CMDHOME%\%PROJ_NAME%.sln
 @echo Restore NuGet packages ===================
 SET STEP=NuGet-Restore
 
-nuget restore
+call nuget-restore.cmd
 
 @if ERRORLEVEL 1 GOTO :ErrorStop
 
