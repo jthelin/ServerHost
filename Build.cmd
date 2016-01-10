@@ -57,7 +57,7 @@ if EXIST %PROJ_NAME%.nuspec (
   @echo ===== Build NuGet package for %PROJ% =====
   SET STEP=NuGet-Pack
 
-  nuget pack %PROJ_NAME%.nuspec
+  nuget pack -symbols %PROJ_NAME%.nuspec
   @if ERRORLEVEL 1 GOTO :ErrorStop
   @echo NuGet package ok for %PROJ%
 ) else (

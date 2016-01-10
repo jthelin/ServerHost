@@ -18,5 +18,7 @@
   </metadata>
   <files>
     <file src="ServerHost\bin\Release\ServerHost.dll" target="lib\net45" />
+
+    <file src="ServerHost\*.cs" target="src" />
   </files>
 </package>
