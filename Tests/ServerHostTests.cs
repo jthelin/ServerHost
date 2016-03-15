@@ -1,4 +1,5 @@
 ﻿// Copyright (c) Jorgen Thelin. All rights reserved.
+// Licensed under Apache 2.0 https://github.com/jthelin/ServerHost/blob/master/LICENSE
 
 using System;
 using FluentAssertions;
