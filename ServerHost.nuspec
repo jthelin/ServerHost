@@ -20,6 +20,10 @@
     <file src="ServerHost\bin\Release\ServerHost.dll" target="lib\net45" />
     <file src="ServerHost\bin\Release\ServerHost.pdb" target="lib\net45" />
 
+    <file src="ServerHost.xunit\bin\Release\ServerHost.xunit.dll" target="lib\net45" />
+    <file src="ServerHost.xunit\bin\Release\ServerHost.xunit.pdb" target="lib\net45" />
+
     <file src="ServerHost\*.cs" target="src" />
+    <file src="ServerHost.xunit\*.cs" target="src" />
   </files>
 </package>

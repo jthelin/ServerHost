@@ -4,6 +4,7 @@ using System;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
+using ServerHost.Test.Xunit;
 
 namespace Server.Host.Tests
 {

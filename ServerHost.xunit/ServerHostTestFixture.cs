@@ -4,7 +4,7 @@ using System;
 using log4net;
 using log4net.Config;
 
-namespace Server.Host.Tests
+namespace ServerHost.Test.Xunit
 {
     /// <summary>
     /// xUnit test fixture to provide per-test-class usage of hosted server instances.
