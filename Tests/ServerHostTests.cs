@@ -2,8 +2,6 @@
 
 using System;
 using FluentAssertions;
-using log4net;
-using log4net.Config;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -53,29 +51,5 @@ namespace Server.Host.Tests
             ServerHost.UnloadAllServers();
         }
         #endregion
-    }
-
-    public class ServerHostTestFixture : IDisposable
-    {
-        internal static readonly ILog log = LogManager.GetLogger(typeof(ServerHostTestFixture));
-
-        private readonly string className;
-
-        // ClassInitialize
-        public ServerHostTestFixture()
-        {
-            this.className = GetType().Name;
-
-            // Set up the log4net configuration.
-            BasicConfigurator.Configure();
-
-            log.InfoFormat("{0} - Initialize", className);
-        }
-
-        // ClassCleanup
-        public void Dispose()
-        {
-            log.InfoFormat("{0} - Dispose", className);
-        }
     }
 }
