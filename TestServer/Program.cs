@@ -8,7 +8,7 @@ using log4net.Config;
 // Read log4net configs fromApp.config file.
 [assembly:XmlConfigurator]
 
-namespace TestServer
+namespace Server.Host.Tests.TestServer
 {
     public class Program
     {

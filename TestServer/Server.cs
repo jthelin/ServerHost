@@ -3,7 +3,7 @@
 using System;
 using log4net;
 
-namespace TestServer
+namespace Server.Host.Tests.TestServer
 {
     public class Server : MarshalByRefObject
     {

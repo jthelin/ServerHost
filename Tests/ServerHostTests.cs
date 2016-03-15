@@ -2,32 +2,28 @@
 
 using System;
 using FluentAssertions;
-using log4net;
-using log4net.Config;
 using Xunit;
 using Xunit.Abstractions;
+using ServerHost.Test.Xunit;
 
-using Server.Host;
-
-namespace Tests
+namespace Server.Host.Tests
 {
     public class ServerHostTests : IClassFixture<ServerHostTestFixture>, IDisposable
     {
-        //private static readonly ILog log = LogManager.GetLogger(typeof(ServerHostTests));
-
         private readonly ITestOutputHelper output;
+        private readonly string className;
 
         [Fact]
         [Trait("Category","BVT")]
         public void LoadServerInNewAppDomain()
         {
-            string serverName = "LoadServerInNewAppDomain"; // TestContext.TestName;
+            string testName = "LoadServerInNewAppDomain"; // TestContext.TestName;
 
             ServerHostHandle<TestServer.Server> serverHostHandle = ServerHost
-                .LoadServerInNewAppDomain<TestServer.Server>(serverName);
+                .LoadServerInNewAppDomain<TestServer.Server>(testName);
 
             serverHostHandle.Should().NotBeNull("Null ServerHostHandle returned.");
-            serverHostHandle.ServerName.Should().Be(serverName, "ServerHostHandle.ServerName");
+            serverHostHandle.ServerName.Should().Be(testName, "ServerHostHandle.ServerName");
             serverHostHandle.AppDomain.Should().NotBeNull("Null ServerHostHandle.AppDomain returned.");
             serverHostHandle.Server.Should().NotBeNull("Null ServerHostHandle.Server returned.");
             serverHostHandle.Server.Should().BeOfType<TestServer.Server>("Server instance type.");
@@ -39,41 +35,22 @@ namespace Tests
         public ServerHostTests(ITestOutputHelper output, ServerHostTestFixture fixture)
         {
             this.output = output;
-            output.WriteLine("TestInitialize");
+            this.className = GetType().Name;
+            output.WriteLine("{0} TestInitialize", className);
 
-            output.WriteLine("Fixture = {0}", fixture);
+            output.WriteLine("{0} Fixture = {1}", className, fixture);
 
-            output.WriteLine("Current directory = {0}", Environment.CurrentDirectory);
+            output.WriteLine("{0} Current directory = {1}", className, Environment.CurrentDirectory);
         }
 
         // TestCleanup
         public void Dispose()
         {
-            output.WriteLine("TestCleanup");
+            output.WriteLine("{0} TestCleanup", className);
 
-            output.WriteLine("UnloadAllServers");
+            output.WriteLine("{0} UnloadAllServers", className);
             ServerHost.UnloadAllServers();
         }
         #endregion
-    }
-
-    public class ServerHostTestFixture : IDisposable
-    {
-        internal static readonly ILog log = LogManager.GetLogger(typeof(ServerHostTestFixture));
-
-        // ClassInitialize
-        public ServerHostTestFixture()
-        {
-            // Set up the log4net configuration.
-            BasicConfigurator.Configure();
-
-            log.Info("ServerHostTestFixture - Initialize");
-        }
-
-        // ClassCleanup
-        public void Dispose()
-        {
-            log.Info("ServerHostTestFixture - Dispose");
-        }
     }
 }

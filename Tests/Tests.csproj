@@ -7,8 +7,8 @@
     <ProjectGuid>{DB6BD075-C56F-4335-83FD-DD4CEF140FED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tests</RootNamespace>
-    <AssemblyName>Tests</AssemblyName>
+    <RootNamespace>Server.Host.Tests</RootNamespace>
+    <AssemblyName>ServerHost.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="FluentAssertions">
       <HintPath>..\packages\FluentAssertions.4.1.1\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
@@ -64,6 +61,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ServerHost.xunit\ServerHost.xunit.csproj">
+      <Project>{e4f2ed11-97d4-48a0-9616-55030599a272}</Project>
+      <Name>ServerHost.xunit</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServerHost\ServerHost.csproj">
       <Project>{98D61E3E-76A7-4664-BAF7-FBBF41A798D9}</Project>
       <Name>ServerHost</Name>

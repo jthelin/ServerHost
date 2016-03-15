@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ServerHost</id>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <authors>Jorgen Thelin</authors>
     <owners>Jorgen Thelin</owners>
     <licenseUrl>https://github.com/jthelin/ServerHost/blob/master/LICENSE</licenseUrl>
@@ -20,6 +20,10 @@
     <file src="ServerHost\bin\Release\ServerHost.dll" target="lib\net45" />
     <file src="ServerHost\bin\Release\ServerHost.pdb" target="lib\net45" />
 
+    <file src="ServerHost.xunit\bin\Release\ServerHost.xunit.dll" target="lib\net45" />
+    <file src="ServerHost.xunit\bin\Release\ServerHost.xunit.pdb" target="lib\net45" />
+
     <file src="ServerHost\*.cs" target="src" />
+    <file src="ServerHost.xunit\*.cs" target="src" />
   </files>
 </package>
