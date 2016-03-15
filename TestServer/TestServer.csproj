@@ -7,8 +7,8 @@
     <ProjectGuid>{3C8985C0-B0EC-4EB6-8EA3-DCB7D770F3FC}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestServer</RootNamespace>
-    <AssemblyName>TestServer</AssemblyName>
+    <RootNamespace>Server.Host.Tests.TestServer</RootNamespace>
+    <AssemblyName>ServerHost.TestServer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

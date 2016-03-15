@@ -47,9 +47,9 @@ set XUNIT_OPTS=-xml %TEST_RESULTS_DIR%\TestResults.xml
 @echo ==== Test %PROJ% %CONFIGURATION% ====
 
 @if "%USE_BINARIES_DIR%" == "True" (
-  set TESTS=%OutDir%\Tests.dll
+  set TESTS=%OutDir%\ServerHost.Tests.dll
 ) else (
-  set TESTS=Tests\bin\%CONFIGURATION%\Tests.dll
+  set TESTS=Tests\bin\%CONFIGURATION%\ServerHost.Tests.dll
 )
 @Echo Test assemblies = %TESTS%
 

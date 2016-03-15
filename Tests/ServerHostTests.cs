@@ -7,14 +7,10 @@ using log4net.Config;
 using Xunit;
 using Xunit.Abstractions;
 
-using Server.Host;
-
-namespace Tests
+namespace Server.Host.Tests
 {
     public class ServerHostTests : IClassFixture<ServerHostTestFixture>, IDisposable
     {
-        //private static readonly ILog log = LogManager.GetLogger(typeof(ServerHostTests));
-
         private readonly ITestOutputHelper output;
 
         [Fact]
