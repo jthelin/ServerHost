@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerHost.cs" />
+    <Compile Include="ServerHostHandle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
