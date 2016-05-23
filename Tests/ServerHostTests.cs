@@ -30,6 +30,19 @@ namespace Server.Host.Tests
             serverHostHandle.Server.Should().BeOfType<TestServer.Server>("Server instance type.");
         }
 
+        [Fact]
+        [Trait("Category", "BVT")]
+        public void ServerHost_Version()
+        {
+            string versionString = LibraryVersionInfo.FileVersion;
+            output.WriteLine("ServerHost library version = {0}", versionString);
+
+            versionString.Should().NotBeNullOrEmpty("Version value should be returned");
+
+            versionString.Should().Contain(".", "Version format = Major.Minor");
+            versionString.Should().NotStartWith("1.0.0.0", "Version should be specific.");
+        }
+
         #region Test Initialization / Cleanup methods
 
         // TestInitialize
@@ -42,6 +55,10 @@ namespace Server.Host.Tests
             output.WriteLine("{0} Fixture = {1}", className, fixture);
 
             output.WriteLine("{0} Current directory = {1}", className, Environment.CurrentDirectory);
+
+            output.WriteLine("ServerHost library API version = {0}", LibraryVersionInfo.ApiVersion);
+            output.WriteLine("ServerHost library file version = {0}", LibraryVersionInfo.FileVersion);
+            output.WriteLine("ServerHost library full version info string = {0}", LibraryVersionInfo.Current);
         }
 
         // TestCleanup
