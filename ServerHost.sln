@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{64DBC33D
 		azure-pipelines.yml = azure-pipelines.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docs", "Docs\Docs.csproj", "{66AF5EBC-2FB4-41F5-B261-6D2523B7037F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{3C8985C0-B0EC-4EB6-8EA3-DCB7D770F3FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C8985C0-B0EC-4EB6-8EA3-DCB7D770F3FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C8985C0-B0EC-4EB6-8EA3-DCB7D770F3FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66AF5EBC-2FB4-41F5-B261-6D2523B7037F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66AF5EBC-2FB4-41F5-B261-6D2523B7037F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66AF5EBC-2FB4-41F5-B261-6D2523B7037F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66AF5EBC-2FB4-41F5-B261-6D2523B7037F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
