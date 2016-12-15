@@ -142,6 +142,8 @@ publish/
 !**/packages/build/
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/packages/repositories.config
+# NuGet Tools
+.tools/
 
 # Windows Azure Build Output
 csx/
