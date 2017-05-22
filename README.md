@@ -1,6 +1,9 @@
+
 # ServerHost
 
 .NET Server Hosting utility library, including in-process server host testing.
+
+[![NuGet](https://img.shields.io/nuget/v/ServerHost.svg)](https://www.nuget.org/packages/ServerHost/)
 
 ## Build Status
 
