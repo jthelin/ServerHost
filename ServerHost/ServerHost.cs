@@ -67,12 +67,22 @@ namespace Server.Host
                 BindingFlags.Default, null, args, CultureInfo.CurrentCulture,
                 noActivationAttributes);
 
+            TServer server = serverObj as TServer;
+
+            if (server == null)
+            {
+                throw new InvalidCastException(string.Format(
+                    "Cannot cast server object {0} from assembly {1} to type {2} from assembly {3}",
+                    serverObj.GetType(), serverObj.GetType().Assembly.CodeBase,
+                    serverType, serverType.Assembly.CodeBase));
+            }
+
             appDomain.UnhandledException += ReportUnobservedException;
 
             return new ServerHostHandle<TServer>
             {
                 ServerName = serverName,
-                Server = (TServer) serverObj,
+                Server = server,
                 AppDomain = appDomain,
             };
         }
