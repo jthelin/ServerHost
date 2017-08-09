@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ServerHost</id>
-    <version>1.1.3</version>
+    <version>1.1.4</version>
     <authors>Jorgen Thelin</authors>
     <owners>Jorgen Thelin</owners>
     <licenseUrl>https://github.com/jthelin/ServerHost/blob/master/LICENSE</licenseUrl>
@@ -10,7 +10,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>ServerHost - A .NET Server Hosting utility library, including in-process server host testing.</description>
     <releaseNotes>Release note are on GitHub https://github.com/jthelin/ServerHost/releases</releaseNotes>
-    <copyright>Copyright 2015-2016</copyright>
+    <copyright>Copyright 2015-2017</copyright>
     <tags>DotNet Server Host</tags>
     <dependencies>
       <dependency id="log4net" version="2.0.5" />
