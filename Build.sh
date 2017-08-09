@@ -1,4 +1,4 @@
 #/usr/bin/bash
 
-xbuild ServerHost.sln
+msbuild ServerHost.sln
 
