@@ -2,6 +2,7 @@
 // Licensed under Apache 2.0 https://github.com/jthelin/ServerHost/blob/master/LICENSE
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 using Server.Host.Testing;
+using Server.Host.Tracing;
 
 namespace Server.Host.Tests.Net46
 {
@@ -117,6 +119,44 @@ namespace Server.Host.Tests.Net46
             _output.WriteLine("ExecId = {0}", execId);
 
             execId.Should().NotBe(Guid.Empty, "ExecId value should be populated.");
+        }
+
+        [Fact]
+        [Trait("Category", "BVT"), Trait("Category","Logging")]
+        public void InstallTraceListenerInAppDomain()
+        {
+            string testName = "InstallTraceListenerInAppDomain"; // TestContext.TestName;
+
+            ServerHostHandle<TestServer.Server> serverHostHandle = ServerHost
+                .LoadServerInNewAppDomain<TestServer.Server>(testName + "-svr");
+
+            var traceListener = new TraceOutputMonitor();
+            Trace.Listeners.Add(traceListener);
+
+            CrossAppDomainTrace.StartListening(serverHostHandle.AppDomain);
+
+            _output.WriteLine("Clearing {0} initial messages.", traceListener.Count);
+            int i = 0;
+            foreach (string msg in traceListener.Messages)
+            {
+                _output.WriteLine(++i + " - " + msg);
+            }
+            traceListener.Clear();
+            traceListener.Count.Should().Be(0, "All log messages cleared.");
+
+            serverHostHandle.Server.InitServer();
+
+            Trace.Listeners.Remove(traceListener);
+
+            int messageCount = traceListener.Count;
+            _output.WriteLine("Got {0} messages logged.", messageCount);
+            i = 0;
+            foreach (string msg in traceListener.Messages)
+            {
+                _output.WriteLine(++i + " - " + msg);
+            }
+
+            messageCount.Should().BeGreaterThan(0, "Some log messages should be received.");
         }
     }
 }
