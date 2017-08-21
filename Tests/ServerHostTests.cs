@@ -2,6 +2,7 @@
 // Licensed under Apache 2.0 https://github.com/jthelin/ServerHost/blob/master/LICENSE
 
 using System;
+using System.IO;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
@@ -41,7 +42,7 @@ namespace Server.Host.Tests
 
             output.WriteLine("{0} Fixture = {1}", className, fixture);
 
-            output.WriteLine("{0} Current directory = {1}", className, Environment.CurrentDirectory);
+            output.WriteLine("{0} Current directory = {1}", className, Directory.GetCurrentDirectory());
         }
 
         // TestCleanup

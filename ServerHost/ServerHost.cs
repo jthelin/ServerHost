@@ -39,7 +39,7 @@ namespace Server.Host
                 throw new ArgumentNullException ("serverName", "Server name param cannot be blank.");
             }
             Type serverType = typeof(TServer);
-            string assemblyName = serverType.Assembly.GetName().Name;
+            string assemblyName = serverType.GetTypeInfo().Assembly.GetName().Name;
             string serverAssembly = assemblyName + ".exe";
             if (!File.Exists(serverAssembly))
             {
@@ -67,12 +67,22 @@ namespace Server.Host
                 BindingFlags.Default, null, args, CultureInfo.CurrentCulture,
                 noActivationAttributes);
 
+            TServer server = serverObj as TServer;
+
+            if (server == null)
+            {
+                throw new InvalidCastException(string.Format(
+                    "Cannot cast server object {0} from assembly {1} to type {2} from assembly {3}",
+                    serverObj.GetType(), serverObj.GetType().GetTypeInfo().Assembly.CodeBase,
+                    serverType, serverType.GetTypeInfo().Assembly.CodeBase));
+            }
+
             appDomain.UnhandledException += ReportUnobservedException;
 
             return new ServerHostHandle<TServer>
             {
                 ServerName = serverName,
-                Server = (TServer) serverObj,
+                Server = server,
                 AppDomain = appDomain,
             };
         }
@@ -130,7 +140,7 @@ namespace Server.Host
 
             return new AppDomainSetup
             {
-                ApplicationBase = Environment.CurrentDirectory,
+                ApplicationBase = Directory.GetCurrentDirectory(),
                 ConfigurationFile = currentAppDomain.SetupInformation.ConfigurationFile,
                 ShadowCopyFiles = currentAppDomain.SetupInformation.ShadowCopyFiles,
                 ShadowCopyDirectories = currentAppDomain.SetupInformation.ShadowCopyDirectories,
