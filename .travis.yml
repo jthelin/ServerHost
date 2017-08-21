@@ -5,6 +5,9 @@ before_install:
   - sudo apt-get install xsltproc
 
 language: csharp
+mono:
+  - 5.0.0
+
 solution: ServerHost.sln
 script:
   - ./Build.sh
