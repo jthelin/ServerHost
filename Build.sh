@@ -1,3 +1,3 @@
 #/usr/bin/bash
 
-msbuild ServerHost.sln
+nuget restore && msbuild ServerHost.sln
