@@ -6,7 +6,7 @@ before_install:
 
 language: csharp
 mono:
-  - 5.0.0
+  - latest
 
 solution: ServerHost.sln
 script:
