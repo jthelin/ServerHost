@@ -2,21 +2,23 @@
 // Licensed under Apache 2.0 https://github.com/jthelin/ServerHost/blob/master/LICENSE
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using FluentAssertions;
+using ServerHost.Test.Xunit;
 using Xunit;
 using Xunit.Abstractions;
-using ServerHost.Test.Xunit;
 
 namespace Server.Host.Tests
 {
     public class ServerHostTests : IClassFixture<ServerHostTestFixture>, IDisposable
     {
-        private readonly ITestOutputHelper output;
-        private readonly string className;
+        private readonly ITestOutputHelper _output;
+        private readonly string _className;
 
         [Fact]
         [Trait("Category","BVT")]
+        [SuppressMessage("ReSharper", "ConvertToConstant.Local")]
         public void LoadServerInNewAppDomain()
         {
             string testName = "LoadServerInNewAppDomain"; // TestContext.TestName;
@@ -36,21 +38,21 @@ namespace Server.Host.Tests
         // TestInitialize
         public ServerHostTests(ITestOutputHelper output, ServerHostTestFixture fixture)
         {
-            this.output = output;
-            this.className = GetType().Name;
-            output.WriteLine("{0} TestInitialize", className);
+            _output = output;
+            _className = GetType().Name;
+            output.WriteLine("{0} TestInitialize", _className);
 
-            output.WriteLine("{0} Fixture = {1}", className, fixture);
+            output.WriteLine("{0} Fixture = {1}", _className, fixture);
 
-            output.WriteLine("{0} Current directory = {1}", className, Directory.GetCurrentDirectory());
+            output.WriteLine("{0} Current directory = {1}", _className, Directory.GetCurrentDirectory());
         }
 
         // TestCleanup
         public void Dispose()
         {
-            output.WriteLine("{0} TestCleanup", className);
+            _output.WriteLine("{0} TestCleanup", _className);
 
-            output.WriteLine("{0} UnloadAllServers", className);
+            _output.WriteLine("{0} UnloadAllServers", _className);
             ServerHost.UnloadAllServers();
         }
         #endregion

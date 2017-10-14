@@ -11,23 +11,23 @@ using log4net.Config;
 
 namespace Server.Host.Tests.TestServer
 {
-    public class Program
+    public static class Program
     {
-        private static readonly ILog log = LogManager.GetLogger("TestServer");
+        private static readonly ILog Log = LogManager.GetLogger("TestServer");
 
         public static void Main(string[] args)
         {
-            string serverName = "MyTestServer";
+            const string serverName = "MyTestServer";
 
             Server server = new Server(serverName);
 
-            log.Info("Initializing Server");
+            Log.InfoFormat("Initializing Server {0} with args = {1}", serverName, string.Join(", ", args));
             server.InitServer();
 
-            log.Info("Running Server");
+            Log.Info("Running Server");
             int rc = server.Run();
 
-            log.InfoFormat("{0}.exe finished with rc={1}", Assembly.GetEntryAssembly().GetName().Name, rc);
+            Log.InfoFormat("{0}.exe finished with rc={1}", Assembly.GetEntryAssembly().GetName().Name, rc);
             Environment.Exit(rc);
         }
     }

@@ -17,9 +17,9 @@ namespace Server.Host
     /// <remarks>Uses <c>log4net</c> for logging. See: http://logging.apache.org/log4net/</remarks>
     public static class ServerHost
     {
-        private static readonly ILog log = LogManager.GetLogger("ServerHost");
+        private static readonly ILog Log = LogManager.GetLogger("ServerHost");
 
-        private static readonly List<AppDomain> loadedAppDomains = new List<AppDomain>();
+        private static readonly List<AppDomain> LoadedAppDomains = new List<AppDomain>();
 
         /// <summary>
         /// Create a new AppDomain and load a new instance of a server class into that AppDomain.
@@ -41,6 +41,7 @@ namespace Server.Host
             Type serverType = typeof(TServer);
             string assemblyName = serverType.GetTypeInfo().Assembly.GetName().Name;
             string serverAssembly = assemblyName + ".exe";
+            string serverTypeName = serverType.FullName ?? serverType.Name;
             if (!File.Exists(serverAssembly))
             {
                 serverAssembly = assemblyName + ".dll";
@@ -48,14 +49,14 @@ namespace Server.Host
                 {
                     throw new FileNotFoundException(string.Format(
                         "Cannot find file to load for server class {0} from assembly {1}",
-                        serverType.FullName, assemblyName));
+                        serverTypeName, assemblyName));
                 }
             }
 
             AppDomainSetup setup = GetAppDomainSetupInfo();
 
             AppDomain appDomain = AppDomain.CreateDomain(serverName, null, setup);
-            loadedAppDomains.Add(appDomain);
+            LoadedAppDomains.Add(appDomain);
 
             // The server class must have a public constructor which 
             // accepts single parameter of server name.
@@ -63,7 +64,7 @@ namespace Server.Host
             var noActivationAttributes = new object[0];
 
             object serverObj = appDomain.CreateInstanceFromAndUnwrap(
-                serverAssembly, serverType.FullName, false,
+                serverAssembly, serverTypeName, false,
                 BindingFlags.Default, null, args, CultureInfo.CurrentCulture,
                 noActivationAttributes);
 
@@ -83,7 +84,7 @@ namespace Server.Host
             {
                 ServerName = serverName,
                 Server = server,
-                AppDomain = appDomain,
+                AppDomain = appDomain
             };
         }
 
@@ -95,22 +96,22 @@ namespace Server.Host
         /// No specific checks are done to confirm that the specified 
         /// AppDomain was created by this class and/or contains a hosted server.
         /// </remarks>
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         public static void UnloadServerInAppDomain(AppDomain appDomain)
         {
-            if (appDomain != null)
+            if (appDomain == null) return;
+            
+            try
             {
-                try
-                {
-                    loadedAppDomains.Remove(appDomain);
-                    appDomain.UnhandledException -= ReportUnobservedException;
+                LoadedAppDomains.Remove(appDomain);
+                appDomain.UnhandledException -= ReportUnobservedException;
 
-                    AppDomain.Unload(appDomain);
-                }
-                catch (Exception exc)
-                {
-                    log.WarnFormat("Ignoring error unloading AppDomain {0} - {1}",
-                        appDomain.FriendlyName, exc);
-                }
+                AppDomain.Unload(appDomain);
+            }
+            catch (Exception exc)
+            {
+                Log.WarnFormat("Ignoring error unloading AppDomain {0} - {1}",
+                    appDomain.FriendlyName, exc);
             }
         }
 
@@ -119,15 +120,14 @@ namespace Server.Host
         /// </summary>
         public static void UnloadAllServers()
         {
-            foreach (AppDomain appDomain in loadedAppDomains.ToArray()) // Take working copy
+            foreach (AppDomain appDomain in LoadedAppDomains.ToArray()) // Take working copy
             {
-                if (appDomain != null)
-                {
-                    log.InfoFormat("Unloading AppDomain {0}", appDomain.FriendlyName);
-                    UnloadServerInAppDomain(appDomain);
-                }
+                if (appDomain == null) continue;
+                
+                Log.InfoFormat("Unloading AppDomain {0}", appDomain.FriendlyName);
+                UnloadServerInAppDomain(appDomain);
             }
-            loadedAppDomains.Clear();
+            LoadedAppDomains.Clear();
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace Server.Host
         private static void ReportUnobservedException(object sender, UnhandledExceptionEventArgs eventArgs)
         {
             Exception exception = (Exception) eventArgs.ExceptionObject;
-            log.WarnFormat("Unobserved exception: {0}", exception);
+            Log.WarnFormat("Unobserved exception: {0}", exception);
         }
     }
 }
