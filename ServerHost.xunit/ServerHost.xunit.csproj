@@ -8,7 +8,7 @@
     <ProjectGuid>{E4F2ED11-97D4-48A0-9616-55030599A272}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ServerHost.Test.Xunit</RootNamespace>
+    <RootNamespace>Server.Host.Test.Xunit</RootNamespace>
     <AssemblyName>ServerHost.xunit</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

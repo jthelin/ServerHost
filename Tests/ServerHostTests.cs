@@ -5,7 +5,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using FluentAssertions;
-using ServerHost.Test.Xunit;
+using Server.Host.Test.Xunit;
 using Xunit;
 using Xunit.Abstractions;
 
