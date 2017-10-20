@@ -11,7 +11,7 @@ using Xunit.Abstractions;
 
 namespace Server.Host.Tests
 {
-    public class ServerHostTests : IClassFixture<ServerHostTestFixture>, IDisposable
+    public sealed class ServerHostTests : IClassFixture<ServerHostTestFixture>, IDisposable
     {
         private readonly ITestOutputHelper _output;
         private readonly string _className;

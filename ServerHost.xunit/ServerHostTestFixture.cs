@@ -34,7 +34,6 @@ namespace Server.Host.Test.Xunit
         // Test-ClassCleanup
         public void Dispose()
         {
-            _log.InfoFormat("{0} - Dispose", _className);
             Dispose(true);
             GC.SuppressFinalize(this);
         }
@@ -44,6 +43,8 @@ namespace Server.Host.Test.Xunit
             ReleaseUnmanagedResources();
             if (disposing)
             {
+                _log.InfoFormat("{0} - Dispose", _className);
+
                 // TODO release managed resources here
             }
         }
@@ -56,6 +57,8 @@ namespace Server.Host.Test.Xunit
         [SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Local")]
         private void ReleaseUnmanagedResources()
         {
+            _log.InfoFormat("{0} - ReleaseUnmanagedResources", _className);
+
             // TODO release unmanaged resources here
         }
     }
