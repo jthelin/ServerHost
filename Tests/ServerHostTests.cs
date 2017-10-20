@@ -5,13 +5,13 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using FluentAssertions;
-using ServerHost.Test.Xunit;
+using Server.Host.Test.Xunit;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Server.Host.Tests
 {
-    public class ServerHostTests : IClassFixture<ServerHostTestFixture>, IDisposable
+    public sealed class ServerHostTests : IClassFixture<ServerHostTestFixture>, IDisposable
     {
         private readonly ITestOutputHelper _output;
         private readonly string _className;

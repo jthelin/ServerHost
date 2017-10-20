@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using log4net;
 using log4net.Config;
 
-namespace ServerHost.Test.Xunit
+namespace Server.Host.Test.Xunit
 {
     /// <summary>
     /// xUnit test fixture to provide per-test-class usage of hosted server instances.
@@ -34,7 +34,6 @@ namespace ServerHost.Test.Xunit
         // Test-ClassCleanup
         public void Dispose()
         {
-            _log.InfoFormat("{0} - Dispose", _className);
             Dispose(true);
             GC.SuppressFinalize(this);
         }
@@ -44,6 +43,8 @@ namespace ServerHost.Test.Xunit
             ReleaseUnmanagedResources();
             if (disposing)
             {
+                _log.InfoFormat("{0} - Dispose", _className);
+
                 // TODO release managed resources here
             }
         }
@@ -56,6 +57,8 @@ namespace ServerHost.Test.Xunit
         [SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Local")]
         private void ReleaseUnmanagedResources()
         {
+            _log.InfoFormat("{0} - ReleaseUnmanagedResources", _className);
+
             // TODO release unmanaged resources here
         }
     }
