@@ -51,9 +51,9 @@ namespace Server.Host.Testing
             ReleaseUnmanagedResources();
             if (disposing)
             {
-                _log.Info($"{_className} - Dispose");
+                _log.Info($"{_className} - Dispose - UnloadAllServers");
 
-                // TODO release managed resources here
+                ServerHost.UnloadAllServers();
             }
         }
 

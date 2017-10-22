@@ -151,7 +151,7 @@ namespace Server.Host
         /// hooked up when AppDomain was created in <c>LoadServerInNewAppDomain</c>,
         /// and unhooked when AppDomain is unloaded in <c>UnloadServerInAppDomain</c>.
         /// </remarks>
-        /// <remarks>Used <c>log4net</c> framework to report error details.</remarks>
+        /// <remarks>Uses <c>log4net</c> framework to report error details.</remarks>
         [ExcludeFromCodeCoverage]
         private static void ReportUnobservedException(object sender, UnhandledExceptionEventArgs eventArgs)
         {
