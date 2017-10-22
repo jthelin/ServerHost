@@ -5,13 +5,12 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using FluentAssertions;
-using Server.Host.Test.Xunit;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Server.Host.Tests
 {
-    public sealed class ServerHostTests : IClassFixture<ServerHostTestFixture>, IDisposable
+    public sealed class ServerHostTests : IClassFixture<ServerHostFixture>, IDisposable
     {
         private readonly ITestOutputHelper _output;
         private readonly string _className;
@@ -36,7 +35,7 @@ namespace Server.Host.Tests
         #region Test Initialization / Cleanup methods
 
         // TestInitialize
-        public ServerHostTests(ITestOutputHelper output, ServerHostTestFixture fixture)
+        public ServerHostTests(ITestOutputHelper output, ServerHostFixture fixture)
         {
             _output = output;
             _className = GetType().Name;
