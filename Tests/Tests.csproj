@@ -80,7 +80,7 @@
       <Name>ServerHost</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestServer\TestServer.csproj">
-      <Project>{3C8985C0-B0EC-4EB6-8EA3-DCB7D770F3FC}</Project>
+      <Project>{3c8985c0-b0ec-4eb6-8ea3-dcb7d770f3fc}</Project>
       <Name>TestServer</Name>
     </ProjectReference>
   </ItemGroup>

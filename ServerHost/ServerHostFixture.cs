@@ -57,6 +57,9 @@ namespace Server.Host
             }
         }
 
+        /// <summary>
+        /// Finalizer function.
+        /// </summary>
         ~ServerHostFixture()
         {
             Dispose(false);
