@@ -75,10 +75,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ServerHost.xunit\ServerHost.xunit.csproj">
-      <Project>{e4f2ed11-97d4-48a0-9616-55030599a272}</Project>
-      <Name>ServerHost.xunit</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ServerHost\ServerHost.csproj">
       <Project>{98D61E3E-76A7-4664-BAF7-FBBF41A798D9}</Project>
       <Name>ServerHost</Name>

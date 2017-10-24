@@ -6,20 +6,22 @@ using System.Diagnostics.CodeAnalysis;
 using log4net;
 using log4net.Config;
 
-namespace Server.Host.Test.Xunit
+namespace Server.Host
 {
     /// <summary>
     /// xUnit test fixture to provide per-test-class usage of hosted server instances.
     /// </summary>
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
-    public class ServerHostTestFixture : IDisposable
+    public class ServerHostFixture : IDisposable
     {
         private readonly ILog _log;
 
         private readonly string _className;
 
-        // Test-ClassInitialize
-        public ServerHostTestFixture()
+        /// <summary>
+        /// Constructor -- Equivalent to ClassInitialize function.
+        /// </summary>
+        public ServerHostFixture()
         {
             _className = GetType().Name;
 
@@ -31,13 +33,19 @@ namespace Server.Host.Test.Xunit
             _log.InfoFormat("{0} - Initialize", _className);
         }
 
-        // Test-ClassCleanup
+        /// <summary>
+        /// Dispose -- Equivalent to ClassCleanup function.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Dispose processing function.
+        /// </summary>
+        /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
             ReleaseUnmanagedResources();
@@ -49,7 +57,7 @@ namespace Server.Host.Test.Xunit
             }
         }
 
-        ~ServerHostTestFixture()
+        ~ServerHostFixture()
         {
             Dispose(false);
         }
