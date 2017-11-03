@@ -1,0 +1,26 @@
+version: '{build}'
+pull_requests:
+  do_not_increment_build_number: true
+image: Visual Studio 2017
+configuration: Release
+cache: C:\projects\serverhost\packages\
+nuget:
+  account_feed: true
+  project_feed: true
+  disable_publish_on_pr: true
+init:
+  - git config --global core.autocrlf input
+build_script:
+- cmd: Build.cmd
+artifacts:
+- path: ServerHost\bin\Release\ServerHost.*
+  name: ServerHost.dll
+- path: ServerHost*.nupkg
+  name: ServerHost.nupkg
+deploy:
+- provider: NuGet
+  api_key:
+    secure: szAnXnpikM/1/HfpZ8K5sQpd7e811c2Evo9M79Fw4jTfFqgTD0BvBH8enSTm9TVM
+  on:
+    branch: master
+    APPVEYOR_REPO_TAG: true
