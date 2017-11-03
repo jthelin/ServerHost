@@ -3,13 +3,15 @@ pull_requests:
   do_not_increment_build_number: true
 image: Visual Studio 2017
 configuration: Release
+init:
+- cmd: git config --global core.autocrlf input
+environment:
+  APPVEYOR_REPO_TAG: true
 cache: C:\projects\serverhost\packages\
 nuget:
   account_feed: true
   project_feed: true
   disable_publish_on_pr: true
-init:
-  - git config --global core.autocrlf input
 build_script:
 - cmd: Build.cmd
 artifacts:

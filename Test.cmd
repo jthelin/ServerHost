@@ -50,7 +50,7 @@ set XUNIT_OPTS=-xml %TEST_RESULTS_DIR%\TestResults.xml
 @if "%USE_BINARIES_DIR%" == "True" (
   set TESTS=%OutDir%\ServerHost.Tests.dll
 ) else (
-  set TESTS=Tests\bin\%CONFIGURATION%\ServerHost.Tests.dll
+  set TESTS=Tests\Tests.Net46\bin\%CONFIGURATION%\ServerHost.Tests.dll
 )
 @Echo Test assemblies = %TESTS%
 
