@@ -7,12 +7,36 @@ SET CMDHOME=%~dp0
 @REM Remove trailing backslash \
 set CMDHOME=%CMDHOME:~0,-1%
 
-@REM Set some .NET directory locations required if running from PowerShell prompt.
-if "%FrameworkDir%" == "" set FrameworkDir=%WINDIR%\Microsoft.NET\Framework
-if "%FrameworkVersion%" == "" set FrameworkVersion=v4.0.30319
+@REM Get path to MSBuild Binaries
+set ProgramFiles_x86=%ProgramFiles(x86)%
+for %%p in (BuildTools Enterprise Professional Community) do (
+    if exist "%ProgramFiles_x86%\Microsoft Visual Studio\2017\%%p" (
+      SET VS_Product=%%p
+      @GOTO :FoundMsBuildDir
+    )
+)
 
-SET MSBUILDEXEDIR=%FrameworkDir%\%FrameworkVersion%
-SET MSBUILDEXE=%MSBUILDEXEDIR%\MSBuild.exe
+@echo Could not find Visual Studio 2017 on this machine. Cannot continue.
+exit /b 1
+
+:FoundMsBuildDir
+SET MSBUILDEXEDIR=%ProgramFiles_x86%\Microsoft Visual Studio\2017\%VS_Product%\MSBuild\15.0\Bin
+@ECHO MsBuildExeDir=%MSBUILDEXEDIR%
+@REM Can't multi-block if statement when check condition contains '(' and ')' char, so do as single line checks
+if NOT "%MSBUILDEXEDIR%" == "" SET MSBUILDEXE=%MSBUILDEXEDIR%\MSBuild.exe
+if NOT "%MSBUILDEXEDIR%" == "" GOTO :MsBuildFound
+
+@REM Try to find VS command prompt init script
+where /Q MsBuild.exe
+if ERRORLEVEL 1 (
+    @echo Could not find MSBuild in the system. Cannot continue.
+    exit /b 1
+) else (
+    @REM MsBuild.exe is in PATH, so just use it.
+   SET MSBUILDEXE=MSBuild.exe
+ )
+:MsBuildFound
+
 SET MSBUILDOPT=/verbosity:minimal
 
 if "%builduri%" == "" set builduri=Build.cmd
