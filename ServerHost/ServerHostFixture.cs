@@ -64,7 +64,7 @@ namespace Server.Host
         {
             Dispose(false);
         }
-        
+
         [SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Local")]
         private void ReleaseUnmanagedResources()
         {

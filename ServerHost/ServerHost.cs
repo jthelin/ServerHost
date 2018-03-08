@@ -32,7 +32,7 @@ namespace Server.Host
         /// Multiple copies of a server can be created if they arer each given a different server name.
         /// </remarks>
         public static ServerHostHandle<TServer> LoadServerInNewAppDomain<TServer>(
-            string serverName) 
+            string serverName)
             where TServer : MarshalByRefObject
         {
             if (string.IsNullOrEmpty(serverName)) {
@@ -58,7 +58,7 @@ namespace Server.Host
             AppDomain appDomain = AppDomain.CreateDomain(serverName, null, setup);
             LoadedAppDomains.Add(appDomain);
 
-            // The server class must have a public constructor which 
+            // The server class must have a public constructor which
             // accepts single parameter of server name.
             var args = new object[] { serverName };
             var noActivationAttributes = new object[0];
@@ -93,14 +93,14 @@ namespace Server.Host
         /// </summary>
         /// <param name="appDomain">The AppDomain to be unloaded.</param>
         /// <remarks>
-        /// No specific checks are done to confirm that the specified 
+        /// No specific checks are done to confirm that the specified
         /// AppDomain was created by this class and/or contains a hosted server.
         /// </remarks>
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         public static void UnloadServerInAppDomain(AppDomain appDomain)
         {
             if (appDomain == null) return;
-            
+
             try
             {
                 LoadedAppDomains.Remove(appDomain);
@@ -123,7 +123,7 @@ namespace Server.Host
             foreach (AppDomain appDomain in LoadedAppDomains.ToArray()) // Take working copy
             {
                 if (appDomain == null) continue;
-                
+
                 Log.InfoFormat("Unloading AppDomain {0}", appDomain.FriendlyName);
                 UnloadServerInAppDomain(appDomain);
             }
@@ -152,7 +152,7 @@ namespace Server.Host
         /// Event handle method to report any unhandled exceptions in a newly created AppDomain.
         /// </summary>
         /// <remarks>
-        /// This event handler is automatically 
+        /// This event handler is automatically
         /// hooked up when AppDomain was created in <c>LoadServerInNewAppDomain</c>,
         /// and unhooked when AppDomain is unloaded in <c>UnloadServerInAppDomain</c>.
         /// </remarks>

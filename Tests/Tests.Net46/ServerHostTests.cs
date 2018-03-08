@@ -43,7 +43,7 @@ namespace Server.Host.Tests.Net46
         {
             string testName = "LoadServerInNewAppDomain"; // TestContext.TestName;
 
-            ServerHostHandle<TestServer.Server> serverHostHandle = 
+            ServerHostHandle<TestServer.Server> serverHostHandle =
                 ServerHost.LoadServerInNewAppDomain<TestServer.Server>(testName);
 
             serverHostHandle.Should().NotBeNull("Null ServerHostHandle returned.");
@@ -51,6 +51,25 @@ namespace Server.Host.Tests.Net46
             serverHostHandle.AppDomain.Should().NotBeNull("Null ServerHostHandle.AppDomain returned.");
             serverHostHandle.Server.Should().NotBeNull("Null ServerHostHandle.Server returned.");
             serverHostHandle.Server.Should().BeOfType<TestServer.Server>("Server instance type.");
+        }
+
+        [Fact]
+        [Trait("Category", "BVT")]
+        public void ServerHost_Version()
+        {
+            _output.WriteLine("ServerHost library API version = {0}", LibraryVersionInfo.ApiVersion);
+            _output.WriteLine("ServerHost library file version = {0}", LibraryVersionInfo.FileVersion);
+            _output.WriteLine("ServerHost library full version info string = {0}", LibraryVersionInfo.Current);
+
+            string versionString = LibraryVersionInfo.FileVersion;
+            _output.WriteLine("ServerHost library version = {0}", versionString);
+
+            versionString.Should().NotBeNullOrEmpty("Version value should be returned");
+
+            versionString.Should().Contain(".", "Version format = Major.Minor");
+            versionString.Should().NotStartWith("1.0.0.0", "Version should be specific.");
+            versionString.Should().NotStartWith("0.0.0.0", "Version should not be zero.");
+            versionString.Should().NotContain("*", "Version should be explicit.");
         }
     }
 }
