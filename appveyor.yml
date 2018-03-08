@@ -14,6 +14,8 @@ nuget:
   disable_publish_on_pr: true
 build_script:
 - cmd: Build.cmd
+test_script:
+- cmd: Test.cmd
 artifacts:
 - path: ServerHost\bin\Release\ServerHost.*
   name: ServerHost.dll
