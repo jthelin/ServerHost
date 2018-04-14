@@ -3,6 +3,8 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
@@ -51,6 +53,25 @@ namespace Server.Host.Tests.Net46
             serverHostHandle.AppDomain.Should().NotBeNull("Null ServerHostHandle.AppDomain returned.");
             serverHostHandle.Server.Should().NotBeNull("Null ServerHostHandle.Server returned.");
             serverHostHandle.Server.Should().BeOfType<TestServer.Server>("Server instance type.");
+        }
+
+        [Fact]
+        [Trait("Category", "BVT")]
+        public async Task UnloadServerInAppDomain()
+        {
+            ServerHost.LoadServerInNewAppDomain<TestServer.Server>("One");
+            ServerHost.LoadServerInNewAppDomain<TestServer.Server>("Two");
+            ServerHost.LoadServerInNewAppDomain<TestServer.Server>("Three");
+
+            var unload = Enumerable.Range(1, 4).Select(i =>
+            {
+                return Task.Run(async () =>
+                {
+                    await Task.Delay(100 - i);
+                    ServerHost.UnloadAllServers();
+                });
+            });
+            await Task.WhenAll(unload);
         }
 
         [Fact]

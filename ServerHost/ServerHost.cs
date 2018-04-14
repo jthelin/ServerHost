@@ -2,10 +2,11 @@
 // Licensed with Apache 2.0 https://github.com/jthelin/ServerHost/blob/master/LICENSE
 
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using log4net;
 
@@ -19,7 +20,7 @@ namespace Server.Host
     {
         private static readonly ILog Log = LogManager.GetLogger("ServerHost");
 
-        private static readonly List<AppDomain> LoadedAppDomains = new List<AppDomain>();
+        private static readonly ConcurrentDictionary<string, AppDomain> LoadedAppDomains = new ConcurrentDictionary<string, AppDomain>();
 
         /// <summary>
         /// Create a new AppDomain and load a new instance of a server class into that AppDomain.
@@ -36,8 +37,9 @@ namespace Server.Host
             where TServer : MarshalByRefObject
         {
             if (string.IsNullOrEmpty(serverName)) {
-                throw new ArgumentNullException ("serverName", "Server name param cannot be blank.");
+                throw new ArgumentNullException (nameof(serverName), "Server name param cannot be blank.");
             }
+
             Type serverType = typeof(TServer);
             string assemblyName = serverType.GetTypeInfo().Assembly.GetName().Name;
             string serverAssembly = assemblyName + ".exe";
@@ -47,16 +49,15 @@ namespace Server.Host
                 serverAssembly = assemblyName + ".dll";
                 if (!File.Exists(serverAssembly))
                 {
-                    throw new FileNotFoundException(string.Format(
-                        "Cannot find file to load for server class {0} from assembly {1}",
-                        serverTypeName, assemblyName));
+                    throw new FileNotFoundException(
+                        $"Cannot find file to load for server class {serverTypeName} from assembly {assemblyName}");
                 }
             }
 
             AppDomainSetup setup = GetAppDomainSetupInfo();
 
             AppDomain appDomain = AppDomain.CreateDomain(serverName, null, setup);
-            LoadedAppDomains.Add(appDomain);
+            LoadedAppDomains[serverName] = appDomain;
 
             // The server class must have a public constructor which
             // accepts single parameter of server name.
@@ -72,10 +73,13 @@ namespace Server.Host
 
             if (server == null)
             {
-                throw new InvalidCastException(string.Format(
-                    "Cannot cast server object {0} from assembly {1} to type {2} from assembly {3}",
-                    serverObj.GetType(), serverObj.GetType().GetTypeInfo().Assembly.CodeBase,
-                    serverType, serverType.GetTypeInfo().Assembly.CodeBase));
+                Type type1 = serverObj.GetType();
+                Type type2 = typeof(TServer);
+                string codebase1 = type1.GetTypeInfo().Assembly.CodeBase;
+                string codebase2 = serverType.GetTypeInfo().Assembly.CodeBase;
+
+                throw new InvalidCastException(
+                    $"Cannot cast server object {type1} from assembly {codebase1} to type {type2} from assembly {codebase2}");
             }
 
             appDomain.UnhandledException += ReportUnobservedException;
@@ -103,15 +107,13 @@ namespace Server.Host
 
             try
             {
-                LoadedAppDomains.Remove(appDomain);
                 appDomain.UnhandledException -= ReportUnobservedException;
 
                 AppDomain.Unload(appDomain);
             }
             catch (Exception exc)
             {
-                Log.WarnFormat("Ignoring error unloading AppDomain {0} - {1}",
-                    appDomain.FriendlyName, exc);
+                Log.Warn($"Ignoring error unloading AppDomain {appDomain.FriendlyName} - {exc}");
             }
         }
 
@@ -120,14 +122,18 @@ namespace Server.Host
         /// </summary>
         public static void UnloadAllServers()
         {
-            foreach (AppDomain appDomain in LoadedAppDomains.ToArray()) // Take working copy
+            foreach (string serverName in LoadedAppDomains.Keys.ToArray()) // Take working copy
             {
-                if (appDomain == null) continue;
+                AppDomain appDomain;
+                if (LoadedAppDomains.TryRemove(serverName, out appDomain))
+                {
+                    if (appDomain == null) continue;
 
-                Log.InfoFormat("Unloading AppDomain {0}", appDomain.FriendlyName);
-                UnloadServerInAppDomain(appDomain);
+                    Log.Info($"Unloading Server {serverName} in AppDomain {appDomain.FriendlyName}");
+
+                    UnloadServerInAppDomain(appDomain);
+                }
             }
-            LoadedAppDomains.Clear();
         }
 
         /// <summary>
@@ -161,7 +167,7 @@ namespace Server.Host
         private static void ReportUnobservedException(object sender, UnhandledExceptionEventArgs eventArgs)
         {
             Exception exception = (Exception) eventArgs.ExceptionObject;
-            Log.WarnFormat("Unobserved exception: {0}", exception);
+            Log.Warn("Unobserved exception: " + exception);
         }
     }
 }
