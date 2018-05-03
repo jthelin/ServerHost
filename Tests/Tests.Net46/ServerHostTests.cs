@@ -92,5 +92,16 @@ namespace Server.Host.Tests.Net46
             versionString.Should().NotStartWith("0.0.0.0", "Version should not be zero.");
             versionString.Should().NotContain("*", "Version should be explicit.");
         }
+
+        [Fact]
+        [Trait("Category", "BVT")]
+        public void ServerHost_ExecId()
+        {
+            Guid execId = ExecId.Value;
+
+            _output.WriteLine("ExecId = {0}", execId);
+
+            execId.Should().NotBe(Guid.Empty, "ExecId value should be populated.");
+        }
     }
 }
