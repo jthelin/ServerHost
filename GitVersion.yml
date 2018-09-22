@@ -1,0 +1,8 @@
+assembly-versioning-scheme: Major
+mode: Mainline
+increment: Patch
+next-version: 1.2.0
+branches:
+  master:
+    tag: alpha
+    prevent-increment-of-merged-branch-version: true
