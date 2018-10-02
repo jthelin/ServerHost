@@ -23,7 +23,14 @@
     <RepositoryUrl>https://github.com/jthelin/ServerHost.git</RepositoryUrl>
   </PropertyGroup>
 
-  <PropertyGroup>
+  <PropertyGroup Condition="'$(TRAVIS)' == 'true'" >
+    <!-- Disable SourceLink when running Travis-CI build, due to bug. -->
+    <!-- https://github.com/dotnet/sourcelink/issues/119 -->
+    <EnableSourceLink>false</EnableSourceLink>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TRAVIS)' != 'true'" >
+
     <!-- SourceLink settings: https://github.com/dotnet/sourcelink#using-sourcelink -->
 
     <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
@@ -34,10 +41,6 @@
 
     <!-- Optional: Include the PDB in the built .nupkg -->
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-
-    <!-- Disable SourceLink when running Travis-CI build, due to bug. -->
-    <!-- https://github.com/dotnet/sourcelink/issues/119 -->
-    <EnableSourceLink Condition="'$(TRAVIS)' == 'true'">false</EnableSourceLink>
   </PropertyGroup>
 
   <ItemGroup>
