@@ -11,7 +11,7 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.10</Version>
+    <Version>1.1.11</Version>
     <Authors>Jorgen Thelin</Authors>
     <Copyright>Copyright © Jorgen Thelin 2015-2018</Copyright>
     <Description>ServerHost - A .NET Server Hosting utility library, including in-process server host testing.</Description>
@@ -23,12 +23,32 @@
     <RepositoryUrl>https://github.com/jthelin/ServerHost.git</RepositoryUrl>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(TRAVIS)' == 'true'" >
+    <!-- Disable SourceLink when running Travis-CI build, due to bug. -->
+    <!-- https://github.com/dotnet/sourcelink/issues/119 -->
+    <EnableSourceLink>false</EnableSourceLink>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TRAVIS)' != 'true'" >
+
+    <!-- SourceLink settings: https://github.com/dotnet/sourcelink#using-sourcelink -->
+
+    <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <!-- Optional: Include the PDB in the built .nupkg -->
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="log4net">
       <Version>2.0.5</Version>
     </PackageReference>
-    <PackageReference Include="SourceLink.Create.CommandLine">
-      <Version>2.8.3</Version>
+    <PackageReference Include="Microsoft.SourceLink.GitHub">
+      <Version>1.0.0-beta-63127-02</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
