@@ -23,12 +23,29 @@
     <RepositoryUrl>https://github.com/jthelin/ServerHost.git</RepositoryUrl>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <!-- SourceLink settings: https://github.com/dotnet/sourcelink#using-sourcelink -->
+
+    <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <!-- Optional: Include the PDB in the built .nupkg -->
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+
+    <!-- Disable SourceLink when running Travis-CI build, due to bug. -->
+    <!-- https://github.com/dotnet/sourcelink/issues/119 -->
+    <EnableSourceLink Condition="'$(TRAVIS)' == true">false</EnableSourceLink>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="log4net">
       <Version>2.0.5</Version>
     </PackageReference>
-    <PackageReference Include="SourceLink.Create.CommandLine">
-      <Version>2.8.3</Version>
+    <PackageReference Include="Microsoft.SourceLink.GitHub">
+      <Version>1.0.0-beta-63127-02</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
