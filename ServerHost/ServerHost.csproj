@@ -37,7 +37,7 @@
 
     <!-- Disable SourceLink when running Travis-CI build, due to bug. -->
     <!-- https://github.com/dotnet/sourcelink/issues/119 -->
-    <EnableSourceLink Condition="'$(TRAVIS)' == true">false</EnableSourceLink>
+    <EnableSourceLink Condition="'$(TRAVIS)' == 'true'">false</EnableSourceLink>
   </PropertyGroup>
 
   <ItemGroup>
