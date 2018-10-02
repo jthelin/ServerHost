@@ -4,6 +4,7 @@
     <TargetFramework>net45</TargetFramework>
     <RootNamespace>Server.Host.Tests.TestServer</RootNamespace>
     <AssemblyName>ServerHost.TestServer</AssemblyName>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

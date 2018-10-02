@@ -4,6 +4,8 @@
     <TargetFramework>net462</TargetFramework>
     <RootNamespace>Server.Host.Tests.Net46</RootNamespace>
     <AssemblyName>ServerHost.Tests</AssemblyName>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
