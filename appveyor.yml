@@ -17,9 +17,7 @@ build_script:
 test_script:
 - cmd: Test.cmd
 artifacts:
-- path: ServerHost\bin\Release\ServerHost.*
-  name: ServerHost.dll
-- path: ServerHost*.nupkg
+- path: ServerHost\bin\Release\ServerHost*.nupkg
   name: ServerHost.nupkg
 deploy:
 - provider: NuGet
