@@ -11,16 +11,17 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.13</Version>
+    <Version>1.1.14</Version>
     <Authors>Jorgen Thelin</Authors>
     <Copyright>Copyright © Jorgen Thelin 2015-2018</Copyright>
     <Description>ServerHost - A .NET Server Hosting utility library, including in-process server host testing.</Description>
     <PackageLicenseUrl>https://github.com/jthelin/ServerHost/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/jthelin/ServerHost</PackageProjectUrl>
     <PackageReleaseNotes>Release note are on GitHub https://github.com/jthelin/ServerHost/releases</PackageReleaseNotes>
-    <PackageTags>DotNet Server Host Testing</PackageTags>
+    <PackageTags>DotNet Server Host Testing AppDomain</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/jthelin/ServerHost.git</RepositoryUrl>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TRAVIS)' == 'true'">
@@ -44,7 +45,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.5" />
+    <PackageReference Include="log4net" Version="2.0.8" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
