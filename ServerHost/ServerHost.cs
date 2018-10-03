@@ -30,7 +30,7 @@ namespace Server.Host
         /// <returns><c>ServerHostHandle</c> object containing metadata about the loaded server instance.</returns>
         /// <remarks>
         /// The <c>serverName</c> will be used for the name of the newly created AppDomain to host this new server instance.
-        /// Multiple copies of a server can be created if they arer each given a different server name.
+        /// Multiple copies of a server can be created if they are each given a different server name.
         /// </remarks>
         public static ServerHostHandle<TServer> LoadServerInNewAppDomain<TServer>(
             string serverName)
@@ -105,15 +105,23 @@ namespace Server.Host
         {
             if (appDomain == null) return;
 
+            string appDomainName = "UNKNOWN";
+
             try
             {
+                appDomainName = appDomain.FriendlyName;
+
                 appDomain.UnhandledException -= ReportUnobservedException;
 
                 AppDomain.Unload(appDomain);
             }
+            catch (CannotUnloadAppDomainException exc)
+            {
+                Log.Warn($"Unable to unload AppDomain {appDomainName} - " + exc.Message, exc);
+            }
             catch (Exception exc)
             {
-                Log.Warn($"Ignoring error unloading AppDomain {appDomain.FriendlyName} - {exc}");
+                Log.Warn($"Ignoring error unloading AppDomain {appDomainName} - " + exc.Message, exc);
             }
         }
 
@@ -122,16 +130,29 @@ namespace Server.Host
         /// </summary>
         public static void UnloadAllServers()
         {
-            foreach (string serverName in LoadedAppDomains.Keys.ToArray()) // Take working copy
+            string[] serverNames = LoadedAppDomains.Keys.ToArray(); // Take working copy
+
+            foreach (string serverName in serverNames)
             {
-                AppDomain appDomain;
-                if (LoadedAppDomains.TryRemove(serverName, out appDomain))
+                if (LoadedAppDomains.TryRemove(serverName, out AppDomain appDomain))
                 {
                     if (appDomain == null) continue;
 
-                    Log.Info($"Unloading Server {serverName} in AppDomain {appDomain.FriendlyName}");
+                    string appDomainName = null;
+                    try
+                    {
+                        // We may get AppDomainUnloadedException thrown here - X-ref: #46.
 
-                    UnloadServerInAppDomain(appDomain);
+                        appDomainName = appDomain.FriendlyName;
+
+                        Log.Info($"Unloading Server {serverName} in AppDomain {appDomainName}");
+
+                        UnloadServerInAppDomain(appDomain);
+                    }
+                    catch (Exception exc)
+                    {
+                        Log.Warn($"Ignoring error unloading AppDomain {appDomainName ?? serverName}. " + exc.Message, exc);
+                    }
                 }
             }
         }

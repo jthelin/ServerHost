@@ -11,7 +11,7 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.11</Version>
+    <Version>1.1.12</Version>
     <Authors>Jorgen Thelin</Authors>
     <Copyright>Copyright © Jorgen Thelin 2015-2018</Copyright>
     <Description>ServerHost - A .NET Server Hosting utility library, including in-process server host testing.</Description>
@@ -23,13 +23,13 @@
     <RepositoryUrl>https://github.com/jthelin/ServerHost.git</RepositoryUrl>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TRAVIS)' == 'true'" >
+  <PropertyGroup Condition="'$(TRAVIS)' == 'true'">
     <!-- Disable SourceLink when running Travis-CI build, due to bug. -->
     <!-- https://github.com/dotnet/sourcelink/issues/119 -->
     <EnableSourceLink>false</EnableSourceLink>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TRAVIS)' != 'true'" >
+  <PropertyGroup Condition="'$(TRAVIS)' != 'true'">
 
     <!-- SourceLink settings: https://github.com/dotnet/sourcelink#using-sourcelink -->
 

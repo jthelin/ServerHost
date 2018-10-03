@@ -63,15 +63,28 @@ namespace Server.Host.Tests.Net46
             ServerHost.LoadServerInNewAppDomain<TestServer.Server>("Two");
             ServerHost.LoadServerInNewAppDomain<TestServer.Server>("Three");
 
-            var unload = Enumerable.Range(1, 4).Select(i =>
+            var unload = Enumerable.Range(1, 10).Select(i =>
             {
                 return Task.Run(async () =>
                 {
-                    await Task.Delay(100 - i);
+                    await Task.Delay(10 - i);
                     ServerHost.UnloadAllServers();
                 });
             });
             await Task.WhenAll(unload);
+        }
+
+        [Fact]
+        [Trait("Category", "BVT")]
+        public void UnloadAllAppDomainsTwice()
+        {
+            ServerHost.LoadServerInNewAppDomain<TestServer.Server>("Four");
+            ServerHost.LoadServerInNewAppDomain<TestServer.Server>("Five");
+            ServerHost.LoadServerInNewAppDomain<TestServer.Server>("Six");
+
+            ServerHost.UnloadAllServers();
+
+            ServerHost.UnloadAllServers();
         }
 
         [Fact]
