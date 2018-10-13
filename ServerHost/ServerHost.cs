@@ -103,12 +103,14 @@ namespace Server.Host
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         public static void UnloadServerInAppDomain(AppDomain appDomain)
         {
-            if (appDomain == null) return;
+            if (appDomain == null || appDomain.IsUnloaded()) return;
 
             string appDomainName = "UNKNOWN";
 
             try
             {
+                // We may get AppDomainUnloadedException thrown here - X-ref: #46.
+
                 appDomainName = appDomain.FriendlyName;
 
                 appDomain.UnhandledException -= ReportUnobservedException;
@@ -138,20 +140,21 @@ namespace Server.Host
                 {
                     if (appDomain == null) continue;
 
-                    string appDomainName = null;
+                    if (appDomain.IsUnloaded())
+                    {
+                        Log.Debug($"AppDomain for server {serverName} has already been unloaded.");
+                        continue;
+                    }
+
                     try
                     {
-                        // We may get AppDomainUnloadedException thrown here - X-ref: #46.
-
-                        appDomainName = appDomain.FriendlyName;
-
-                        Log.Info($"Unloading Server {serverName} in AppDomain {appDomainName}");
+                        Log.Info($"Unloading AppDomain for server {serverName}.");
 
                         UnloadServerInAppDomain(appDomain);
                     }
                     catch (Exception exc)
                     {
-                        Log.Warn($"Ignoring error unloading AppDomain {appDomainName ?? serverName}. " + exc.Message, exc);
+                        Log.Warn($"Ignoring error unloading AppDomain for server {serverName}. " + exc.Message, exc);
                     }
                 }
             }
@@ -161,7 +164,7 @@ namespace Server.Host
         /// Construct AppDomain configuration metadata based on the current execution environment.
         /// </summary>
         /// <returns>AppDomainSetup info for creating an new child AppDomain.</returns>
-        private static AppDomainSetup GetAppDomainSetupInfo()
+        public static AppDomainSetup GetAppDomainSetupInfo()
         {
             AppDomain currentAppDomain = AppDomain.CurrentDomain;
 
@@ -189,6 +192,26 @@ namespace Server.Host
         {
             Exception exception = (Exception) eventArgs.ExceptionObject;
             Log.Warn("Unobserved exception: " + exception);
+        }
+
+        /// <summary>
+        /// Check whether the specified AppDomain has already been unloaded and is now inaccessible.
+        /// </summary>
+        /// <returns> Returns <c>true</c> if the specified AppDomain has been unloaded.</returns>
+        /// <param name="appDomain"> The AppDomain to be checked. </param>
+        private static bool IsUnloaded(this AppDomain appDomain)
+        {
+            try
+            {
+                string unused = appDomain.FriendlyName;
+
+                // If this worked, then the AppDomain is still accessible.
+                return false;
+            }
+            catch (AppDomainUnloadedException)
+            {
+                return true;
+            }
         }
     }
 }
