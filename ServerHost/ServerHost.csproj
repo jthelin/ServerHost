@@ -44,11 +44,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="log4net">
-      <Version>2.0.5</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.SourceLink.GitHub">
-      <Version>1.0.0-beta-63127-02</Version>
+    <PackageReference Include="log4net" Version="2.0.5" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
