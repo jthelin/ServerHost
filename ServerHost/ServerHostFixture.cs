@@ -30,7 +30,7 @@ namespace Server.Host
 
             _log = LogManager.GetLogger(_className);
 
-            _log.InfoFormat("{0} - Initialize", _className);
+            _log.Info($"{_className} - Initialize");
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Server.Host
             ReleaseUnmanagedResources();
             if (disposing)
             {
-                _log.InfoFormat("{0} - Dispose", _className);
+                _log.Info($"{_className} - Dispose");
 
                 // TODO release managed resources here
             }
@@ -68,7 +68,7 @@ namespace Server.Host
         [SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Local")]
         private void ReleaseUnmanagedResources()
         {
-            _log.InfoFormat("{0} - ReleaseUnmanagedResources", _className);
+            _log.Info($"{_className} - ReleaseUnmanagedResources");
 
             // TODO release unmanaged resources here
         }

@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -54,7 +53,7 @@ namespace Server.Host
                 }
             }
 
-            AppDomainSetup setup = GetAppDomainSetupInfo();
+            AppDomainSetup setup = AppDomainSetupUtils.GetAppDomainSetupInfo();
 
             AppDomain appDomain = AppDomain.CreateDomain(serverName, null, setup);
             LoadedAppDomains[serverName] = appDomain;
@@ -62,25 +61,9 @@ namespace Server.Host
             // The server class must have a public constructor which
             // accepts single parameter of server name.
             var args = new object[] { serverName };
-            var noActivationAttributes = new object[0];
 
-            object serverObj = appDomain.CreateInstanceFromAndUnwrap(
-                serverAssembly, serverTypeName, false,
-                BindingFlags.Default, null, args, CultureInfo.CurrentCulture,
-                noActivationAttributes);
-
-            TServer server = serverObj as TServer;
-
-            if (server == null)
-            {
-                Type type1 = serverObj.GetType();
-                Type type2 = typeof(TServer);
-                string codebase1 = type1.GetTypeInfo().Assembly.CodeBase;
-                string codebase2 = serverType.GetTypeInfo().Assembly.CodeBase;
-
-                throw new InvalidCastException(
-                    $"Cannot cast server object {type1} from assembly {codebase1} to type {type2} from assembly {codebase2}");
-            }
+            TServer server = AppDomainSetupUtils
+                .CreateObjectInstanceInAppDomain<TServer>(appDomain, args);
 
             appDomain.UnhandledException += ReportUnobservedException;
 
@@ -158,24 +141,6 @@ namespace Server.Host
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Construct AppDomain configuration metadata based on the current execution environment.
-        /// </summary>
-        /// <returns>AppDomainSetup info for creating an new child AppDomain.</returns>
-        public static AppDomainSetup GetAppDomainSetupInfo()
-        {
-            AppDomain currentAppDomain = AppDomain.CurrentDomain;
-
-            return new AppDomainSetup
-            {
-                ApplicationBase = Directory.GetCurrentDirectory(),
-                ConfigurationFile = currentAppDomain.SetupInformation.ConfigurationFile,
-                ShadowCopyFiles = currentAppDomain.SetupInformation.ShadowCopyFiles,
-                ShadowCopyDirectories = currentAppDomain.SetupInformation.ShadowCopyDirectories,
-                CachePath = currentAppDomain.SetupInformation.CachePath
-            };
         }
 
         /// <summary>

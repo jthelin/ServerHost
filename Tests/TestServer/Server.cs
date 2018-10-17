@@ -2,7 +2,9 @@
 // Licensed with Apache 2.0 https://github.com/jthelin/ServerHost/blob/master/LICENSE
 
 using System;
+using System.Diagnostics;
 using log4net;
+using log4net.Config;
 
 namespace Server.Host.Tests.TestServer
 {
@@ -12,12 +14,17 @@ namespace Server.Host.Tests.TestServer
 
         public Server(string serverName)
         {
-            Log.InfoFormat("Server - {0}", serverName);
+            // Initialize log4net logging.
+            XmlConfigurator.Configure();
+
+            Log.Info($"Server - {serverName}");
         }
 
         public void InitServer()
         {
-            Log.Info("InitServer!");
+            Log.Info("InitServer - log4net");
+            Debug.WriteLine("InitServer - Debug.WriteLine");
+            Trace.TraceInformation("InitServer - Trace.TraceInformation");
         }
 
         public int Run()

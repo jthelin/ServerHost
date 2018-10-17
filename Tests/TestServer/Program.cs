@@ -3,6 +3,7 @@
 
 using System;
 using System.Reflection;
+using JetBrains.Annotations;
 using log4net;
 using log4net.Config;
 
@@ -11,6 +12,7 @@ using log4net.Config;
 
 namespace Server.Host.Tests.TestServer
 {
+    [PublicAPI]
     public static class Program
     {
         private static readonly ILog Log = LogManager.GetLogger("TestServer");
@@ -19,15 +21,17 @@ namespace Server.Host.Tests.TestServer
         {
             const string serverName = "MyTestServer";
 
+            string progName = Assembly.GetEntryAssembly().GetName().Name;
+
             Server server = new Server(serverName);
 
-            Log.InfoFormat("Initializing Server {0} with args = {1}", serverName, string.Join(", ", args));
+            Log.Info($"Initializing Server {serverName} with args = " + string.Join(", ", args));
             server.InitServer();
 
             Log.Info("Running Server");
             int rc = server.Run();
 
-            Log.InfoFormat("{0}.exe finished with rc={1}", Assembly.GetEntryAssembly().GetName().Name, rc);
+            Log.Info($"{progName}.exe finished with rc={rc}");
             Environment.Exit(rc);
         }
     }
