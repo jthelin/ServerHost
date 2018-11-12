@@ -9,6 +9,8 @@ using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 
+using Server.Host.Testing;
+
 namespace Server.Host.Tests.Net46
 {
     public sealed class ServerHostTests : IClassFixture<ServerHostFixture>, IDisposable
