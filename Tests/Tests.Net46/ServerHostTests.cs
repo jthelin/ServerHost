@@ -90,7 +90,7 @@ namespace Server.Host.Tests.Net46
         }
 
         [Fact]
-        [Trait("Category", "BVT")]
+        [Trait("Category", "BVT"), Trait("Category","VersionInfo")]
         public void ServerHost_Version()
         {
             _output.WriteLine("ServerHost library API version = {0}", LibraryVersionInfo.ApiVersion);
@@ -109,7 +109,7 @@ namespace Server.Host.Tests.Net46
         }
 
         [Fact]
-        [Trait("Category", "BVT")]
+        [Trait("Category", "BVT"), Trait("Category","VersionInfo")]
         public void ServerHost_ExecId()
         {
             Guid execId = ExecId.Value;
