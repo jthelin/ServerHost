@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerHost", "ServerHost\ServerHost.csproj", "{98D61E3E-76A7-4664-BAF7-FBBF41A798D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerHost", "ServerHost\ServerHost.csproj", "{98D61E3E-76A7-4664-BAF7-FBBF41A798D9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A20AA77B-112B-4786-BDC1-7ADC8CE32C40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Net46", "Tests\Tests.Net46\Tests.Net46.csproj", "{DB6BD075-C56F-4335-83FD-DD4CEF140FED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Net46", "Tests\Tests.Net46\Tests.Net46.csproj", "{DB6BD075-C56F-4335-83FD-DD4CEF140FED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestServer", "Tests\TestServer\TestServer.csproj", "{3C8985C0-B0EC-4EB6-8EA3-DCB7D770F3FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestServer", "Tests\TestServer\TestServer.csproj", "{3C8985C0-B0EC-4EB6-8EA3-DCB7D770F3FC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{64DBC33D-89B0-4F25-8E6D-3A4FAA8F4AE0}"
 	ProjectSection(SolutionItems) = preProject
@@ -23,12 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{64DBC33D
 		Test.cmd = Test.cmd
 		Test.runsettings = Test.runsettings
 		Test.sh = Test.sh
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BAC26871-088E-4528-B17C-C847091AFC13}"
-	ProjectSection(SolutionItems) = preProject
-		nuget.config = nuget.config
-		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
 Global

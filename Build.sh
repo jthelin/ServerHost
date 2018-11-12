@@ -1,3 +1,5 @@
 #/usr/bin/bash
 
-nuget restore && msbuild ServerHost.sln
+PROJ=ServerHost.sln
+
+nuget restore $PROJ && msbuild $PROJ
