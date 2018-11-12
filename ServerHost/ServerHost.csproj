@@ -15,7 +15,7 @@
     <Authors>Jorgen Thelin</Authors>
     <Copyright>Copyright © Jorgen Thelin 2015-2018</Copyright>
     <Description>ServerHost - A .NET Server Hosting utility library, including in-process server host testing.</Description>
-    <PackageLicenseUrl>https://github.com/jthelin/ServerHost/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/jthelin/ServerHost</PackageProjectUrl>
     <PackageReleaseNotes>Release note are on GitHub https://github.com/jthelin/ServerHost/releases</PackageReleaseNotes>
     <PackageTags>DotNet Server Host Testing AppDomain</PackageTags>
@@ -45,7 +45,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
+    <PackageReference Include="JetBrains.Annotations" Version="2018.2.1">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="log4net" Version="2.0.8" />
   </ItemGroup>
 
