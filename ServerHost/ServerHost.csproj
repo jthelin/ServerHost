@@ -11,7 +11,7 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.14</Version>
+    <Version>1.1.15</Version>
     <Authors>Jorgen Thelin</Authors>
     <Copyright>Copyright © Jorgen Thelin 2015-2018</Copyright>
     <Description>ServerHost - A .NET Server Hosting utility library, including in-process server host testing.</Description>
@@ -45,6 +45,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
     <PackageReference Include="log4net" Version="2.0.8" />
   </ItemGroup>
 

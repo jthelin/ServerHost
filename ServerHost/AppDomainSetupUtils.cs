@@ -16,6 +16,7 @@ namespace Server.Host
         /// </summary>
         /// <typeparam name="T"> The type of object to be created. </typeparam>
         /// <param name="appDomain"> The AppDomain where the "far" tracer object should be created. </param>
+        /// <param name="args"> Constructor instance arguments. </param>
         /// <returns> An instance of the remote trace instance. </returns>
         [MethodImpl(MethodImplOptions.NoInlining)]
         internal static T CreateObjectInstanceInAppDomain<T>(
