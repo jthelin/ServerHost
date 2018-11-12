@@ -55,8 +55,8 @@ call nuget-restore.cmd
 
 @if ERRORLEVEL 1 GOTO :ErrorStop
 
-@echo Build Debug ==============================
-SET STEP=Debug
+@echo Build Release ============================
+SET STEP=Release
 
 SET CONFIGURATION=%STEP%
 
@@ -66,8 +66,8 @@ SET CONFIGURATION=%STEP%
 @if ERRORLEVEL 1 GOTO :ErrorStop
 @echo BUILD ok for %CONFIGURATION% %PROJ%
 
-@echo Build Release ============================
-SET STEP=Release
+@echo Build Debug ==============================
+SET STEP=Debug
 
 SET CONFIGURATION=%STEP%
 
