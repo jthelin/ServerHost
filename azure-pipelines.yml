@@ -1,30 +1,51 @@
-# .NET Desktop
-# Build and run tests for .NET Desktop or Windows classic desktop solutions.
-# Add steps that publish symbols, save build artifacts, and more:
-# https://docs.microsoft.com/vsts/pipelines/apps/windows/dot-net
-
-pool:
-  vmImage: 'VS2017-Win2016'
 
 variables:
-  solution: '**/*.sln'
+  solution: 'ServerHost.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  
+jobs:
+- job: 'csharpWindows'  
+  pool:
+    vmImage: vs2017-win2016    
+  displayName: 'C# (Windows)'
+  
+  steps:
+  - task: NuGetToolInstaller@0
 
-steps:
-- task: NuGetToolInstaller@0
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '$(solution)'
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+  - task: VSBuild@1
+    inputs:
+      solution: '$(solution)'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+  - task: VSTest@2
+    inputs:
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+      
+- job: 'csharpLinux'
+  pool:
+    vmImage: ubuntu-16.04
+  displayName: 'C# (Linux)'
 
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+  steps:
+  - script: |
+      mono --version
+      msbuild /version
+      dotnet --info | grep 'Base Path'
+      ls /usr/share/dotnet/shared/Microsoft.NETCore.App/
+    displayName: 'Environment Info'
+      
+  - script: |
+      msbuild /t:restore $(solution)
+      msbuild /p:Configuration=Debug $(solution)
+    displayName: 'Build'
+    
+  - script: |
+      bash ./Test.sh
+    displayName: 'Test'
