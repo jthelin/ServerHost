@@ -15,8 +15,6 @@
     <Authors>Jorgen Thelin</Authors>
     <Copyright>Copyright © Jorgen Thelin 2015-2018</Copyright>
     <Description>ServerHost - A .NET Server Hosting utility library, including in-process server host testing.</Description>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageLicenseUrl>https://spdx.org/licenses/Apache-2.0.html</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/jthelin/ServerHost</PackageProjectUrl>
     <PackageReleaseNotes>Release note are on GitHub https://github.com/jthelin/ServerHost/releases</PackageReleaseNotes>
@@ -60,7 +58,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Include="$(SolutionDir)\LICENSE.txt" Pack="true" PackagePath="$(PackageLicenseFile)"/>
+    <None Include="$(SolutionDir)\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
   </ItemGroup>
 
 </Project>
