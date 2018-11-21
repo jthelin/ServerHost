@@ -27,6 +27,7 @@ jobs:
     inputs:
       platform: '$(buildPlatform)'
       configuration: '$(buildConfiguration)'
+      codeCoverageEnabled: True
       
 - job: 'csharpLinux'
   pool:
