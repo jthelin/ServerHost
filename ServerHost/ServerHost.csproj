@@ -26,14 +26,14 @@
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TRAVIS)' == 'true'">
+  <PropertyGroup Condition="'$(TRAVIS)' == 'true' OR '$(OS)' != 'Windows_NT'">
     <!-- Disable SourceLink when running Travis-CI build, due to bug. -->
     <!-- https://github.com/dotnet/sourcelink/issues/119 -->
     <EnableSourceLink>false</EnableSourceLink>
+    <EnableSourceControlManagerQueries>false</EnableSourceControlManagerQueries>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TRAVIS)' != 'true'">
-
+  <PropertyGroup>
     <!-- SourceLink settings: https://github.com/dotnet/sourcelink#using-sourcelink -->
 
     <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
