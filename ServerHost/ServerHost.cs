@@ -168,10 +168,10 @@ namespace Server.Host
         {
             try
             {
-                string unused = appDomain.FriendlyName;
+                string name = appDomain.FriendlyName;
 
-                // If this worked, then the AppDomain is still accessible.
-                return false;
+                // If this worked (no exception thrown), then the AppDomain is still accessible.
+                return String.IsNullOrEmpty(name);
             }
             catch (AppDomainUnloadedException)
             {
