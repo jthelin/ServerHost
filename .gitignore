@@ -199,3 +199,4 @@ FakesAssemblies/
 
 # Generated API documentation files
 documentation/*.md
+/Docs/_site
