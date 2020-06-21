@@ -1,5 +1,6 @@
-#/usr/bin/bash
+#!/bin/bash
 
 PROJ=ServerHost.sln
 
 nuget restore $PROJ && msbuild $PROJ
+
