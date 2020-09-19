@@ -11,11 +11,11 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.18</Version>
+    <Version>1.1.19</Version>
     <Authors>Jorgen Thelin</Authors>
     <Copyright>Copyright © Jorgen Thelin 2015-2018</Copyright>
     <Description>ServerHost - A .NET Server Hosting utility library, including in-process server host testing.</Description>
-    <PackageLicenseUrl>https://spdx.org/licenses/Apache-2.0.html</PackageLicenseUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/jthelin/ServerHost</PackageProjectUrl>
     <PackageReleaseNotes>Release note are on GitHub https://github.com/jthelin/ServerHost/releases</PackageReleaseNotes>
     <PackageTags>DotNet Server Host Testing AppDomain</PackageTags>
