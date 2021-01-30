@@ -5,10 +5,10 @@ variables:
   buildConfiguration: 'Release'
   
 jobs:
-- job: 'csharpWindows'  
-  pool:
-    vmImage: vs2019-latest    
+- job: CSharp_Windows
   displayName: 'C# (Windows)'
+  pool:
+    vmImage: 'windows-latest'
   
   steps:
   - task: NuGetToolInstaller@0
@@ -29,10 +29,10 @@ jobs:
       configuration: '$(buildConfiguration)'
       codeCoverageEnabled: True
       
-- job: 'csharpLinux'
-  pool:
-    vmImage: ubuntu-20.04
+- job: CSharp_Linux
   displayName: 'C# (Linux)'
+  pool:
+    vmImage: 'ubuntu-latest'
 
   steps:
   - script: |
