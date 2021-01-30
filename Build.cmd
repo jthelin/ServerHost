@@ -10,17 +10,17 @@ set CMDHOME=%CMDHOME:~0,-1%
 @REM Get path to MSBuild Binaries
 set ProgramFiles_x86=%ProgramFiles(x86)%
 for %%p in (BuildTools Enterprise Professional Community) do (
-    if exist "%ProgramFiles_x86%\Microsoft Visual Studio\2017\%%p" (
+    if exist "%ProgramFiles_x86%\Microsoft Visual Studio\2019\%%p" (
       SET VS_Product=%%p
       @GOTO :FoundMsBuildDir
     )
 )
 
-@echo Could not find Visual Studio 2017 on this machine. Cannot continue.
+@echo Could not find Visual Studio 2019 on this machine. Cannot continue.
 exit /b 1
 
 :FoundMsBuildDir
-SET MSBUILDEXEDIR=%ProgramFiles_x86%\Microsoft Visual Studio\2017\%VS_Product%\MSBuild\15.0\Bin
+SET MSBUILDEXEDIR=%ProgramFiles_x86%\Microsoft Visual Studio\2019\%VS_Product%\MSBuild\Current\Bin
 @ECHO MsBuildExeDir=%MSBUILDEXEDIR%
 @REM Can't multi-block if statement when check condition contains '(' and ')' char, so do as single line checks
 if NOT "%MSBUILDEXEDIR%" == "" SET MSBUILDEXE=%MSBUILDEXEDIR%\MSBuild.exe
