@@ -11,7 +11,7 @@ using Xunit.Abstractions;
 
 using Server.Host.Testing;
 
-namespace Server.Host.Tests.Net46
+namespace Server.Host.Tests.DotNet
 {
     public sealed class ServerHostTests : IClassFixture<ServerHostFixture>, IDisposable
     {

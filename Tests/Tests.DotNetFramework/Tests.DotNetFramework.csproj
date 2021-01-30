@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
-    <RootNamespace>Server.Host.Tests.Net46</RootNamespace>
+    <TargetFramework>net48</TargetFramework>
+    <RootNamespace>Server.Host.Tests</RootNamespace>
     <AssemblyName>ServerHost.Tests</AssemblyName>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <IsPackable>false</IsPackable>

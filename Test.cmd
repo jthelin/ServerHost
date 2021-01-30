@@ -30,7 +30,7 @@ set PROJ=%PROJ_NAME%
 
 @echo ==== Test %PROJ% %CONFIGURATION% ====
 
-set TESTS=Tests\Tests.Net46\bin\%CONFIGURATION%\ServerHost.Tests.dll
+set TESTS=Tests\Tests.DotNetFramework\bin\%CONFIGURATION%\ServerHost.Tests.dll
 @Echo Test assemblies = %TESTS%
 
 if NOT .%TEST_CATEGORY%. == .. (
